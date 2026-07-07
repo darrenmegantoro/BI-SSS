@@ -372,16 +372,407 @@ body {
 .d-none{display:none !important;}
 .text-critical{color:#f87171; animation:textPulse 1.5s ease-in-out infinite;}
 @keyframes textPulse { 0%,100%{opacity:1;} 50%{opacity:.65;} }
+
+
+/* ================================================================
+   THEME VARIABLES — LIGHT DASHBOARD REVISION
+   LAYOUT · SIDEBAR COLLAPSE · CALENDAR STATUS COLORS
+================================================================ */
+:root {
+    --primary-navy:#08213D;
+    --secondary-navy:#0A2B4E;
+    --tertiary-navy:#0F3A63;
+    --accent-teal:#12AEB5;
+    --accent-cyan:#0EA5E9;
+    --accent-cyan-dim:rgba(14,165,233,.12);
+    --accent-cyan-glow:0 0 0 3px rgba(14,165,233,.12),0 8px 24px rgba(15,23,42,.08);
+    --bg-root:#F5F7FB;
+    --bg-workspace:#F5F7FB;
+    --bg-card:#FFFFFF;
+    --bg-card-hover:#F8FAFC;
+    --text-main:#0F172A;
+    --text-muted:#64748B;
+    --text-dim:#94A3B8;
+    --border-color:#E5EAF2;
+    --border-bright:#BEEAF2;
+    --red:#EF4444; --red-bg:#FEE2E2; --red-b:#FECACA;
+    --yellow:#F59E0B; --yellow-bg:#FEF3C7; --yellow-b:#FDE68A;
+    --green:#10B981; --green-bg:#DCFCE7; --green-b:#BBF7D0;
+    --blue:#0EA5E9; --blue-bg:#E0F2FE; --blue-b:#BAE6FD;
+    --purple:#0EA5E9; --purple-bg:#E0F2FE;
+    --orange:#F97316; --orange-bg:#FFEDD5; --orange-b:#FED7AA;
+    --wa-green:#25D366;
+}
+body { background:var(--bg-root); color:var(--text-main); }
+#app-container { background:var(--bg-root); }
+#top-navbar { background:#FFFFFF; border-bottom:1px solid var(--border-color); box-shadow:0 1px 0 rgba(15,23,42,.03); }
+#content-stream { background:var(--bg-root); }
+#context-panel { background:#FFFFFF; border-left:1px solid var(--border-color); box-shadow:-10px 0 24px rgba(15,23,42,.03); }
+#sidebar { background:linear-gradient(180deg,#08213D 0%,#061B33 100%); border-right:1px solid rgba(255,255,255,.08); transition:width .24s ease, transform .24s ease; }
+.sidebar-brand { background:rgba(255,255,255,.03); border-bottom:1px solid rgba(255,255,255,.08); }
+.brand-logo-wrap { background:linear-gradient(135deg,#12AEB5,#0EA5E9); box-shadow:0 8px 20px rgba(14,165,233,.24); }
+.brand-text h1,.sidebar-footer .user-info p { color:#FFFFFF; }
+.brand-text p,.sidebar-region span,.sidebar-region i { color:#67E8F9; }
+.sidebar-region { background:rgba(14,165,233,.08); border-color:rgba(14,165,233,.18); }
+.menu-label { color:#7F9BB8; }
+.menu-item a { color:#B8C7D9; }
+.menu-item a:hover { color:#FFFFFF; background:rgba(255,255,255,.07); }
+.menu-item.active a { background:linear-gradient(135deg,#12AEB5,#0EA5E9); color:#FFFFFF; box-shadow:0 8px 22px rgba(14,165,233,.28); }
+.menu-item.active a .menu-badge { background:rgba(255,255,255,.18); color:#FFFFFF; }
+.sidebar-footer { border-top:1px solid rgba(255,255,255,.08); }
+.user-avatar { background:linear-gradient(135deg,#12AEB5,#0EA5E9); color:#FFFFFF; }
+.sidebar-toggle-btn { width:38px; height:38px; display:inline-flex; align-items:center; justify-content:center; border:1px solid var(--border-color); background:#FFFFFF; color:var(--text-muted); border-radius:12px; cursor:pointer; transition:var(--transition); flex-shrink:0; }
+.sidebar-toggle-btn:hover { color:var(--accent-cyan); border-color:#BEEAF2; box-shadow:0 8px 18px rgba(14,165,233,.14); }
+body.sidebar-collapsed #sidebar { width:72px; }
+body.sidebar-collapsed .brand-text, body.sidebar-collapsed .sidebar-region span, body.sidebar-collapsed .menu-label, body.sidebar-collapsed .user-info, body.sidebar-collapsed .user-status { display:none; }
+body.sidebar-collapsed .sidebar-brand { justify-content:center; padding:18px 10px; }
+body.sidebar-collapsed .sidebar-region { justify-content:center; margin:12px 10px 0; padding:9px 0; }
+body.sidebar-collapsed .sidebar-menu { padding:12px 8px; }
+body.sidebar-collapsed .menu-item a { justify-content:center; gap:0; font-size:0; padding:12px 0; }
+body.sidebar-collapsed .menu-item a i { font-size:16px; width:auto; }
+body.sidebar-collapsed .menu-badge { display:none; }
+body.sidebar-collapsed .sidebar-footer { justify-content:center; padding:14px 8px; }
+#sidebar-backdrop { display:none; position:fixed; inset:0; background:rgba(15,23,42,.36); z-index:18; }
+.search-input { background:#FFFFFF; color:var(--text-main); border-color:var(--border-color); box-shadow:0 1px 2px rgba(15,23,42,.03); }
+.search-input::placeholder { color:#A0AEC0; }
+.search-input:focus { border-color:#7DD3FC; box-shadow:0 0 0 4px rgba(14,165,233,.13); }
+.breadcrumb { color:var(--text-muted); }
+.breadcrumb .crumb-active,.live-clock { color:var(--accent-cyan); }
+.nav-pill { background:#FEF2F2; border-color:#FECACA; color:#B91C1C; }
+.nav-icon-btn { color:var(--text-muted); }
+.nav-icon-btn .dot { border-color:#FFFFFF; }
+.metric-card,.calendar-shell,.list-shell,.chart-card,.cheat-category-card,.accordion-item,.automation-shell { background:#FFFFFF; border:1px solid var(--border-color); box-shadow:0 10px 24px rgba(15,23,42,.04); }
+.metric-card:hover,.metric-card.kpi-active { border-color:#7DD3FC; box-shadow:0 14px 30px rgba(14,165,233,.12); }
+.metric-value,.view-title,.calendar-header-title,.list-shell-title,.chart-title,.entity-name,.panel-entity-name,.legal-card-title,.countdown-time,.branch-info-val,.accordion-title,.cheat-doc-name,.rz-label,.bar-val,.modal-header h3 { color:var(--text-main); }
+.metric-label,.metric-sub,.calendar-header-meta,.panel-entity-sub,.legal-card-desc,.checklist-item,.profile-merge-key,.cheat-category-desc,.data-table th { color:var(--text-muted); }
+.calendar-header,.list-shell-header,.automation-header,.panel-eyebrow,.modal-header { background:#FFFFFF; border-color:var(--border-color); }
+.month-nav,.toolbar-btn,.back-btn { background:#FFFFFF; border-color:var(--border-color); color:var(--text-muted); }
+.month-nav span { color:var(--text-main); }
+.toolbar-btn:hover,.back-btn:hover { color:var(--accent-cyan); border-color:#BAE6FD; background:#F8FAFC; }
+.toolbar-btn-gold,.panel-btn-gold,.btn-modal-save { background:linear-gradient(135deg,#12AEB5,#0EA5E9); color:#FFFFFF; }
+.toolbar-btn-gold:hover,.panel-btn-gold:hover,.btn-modal-save:hover { color:#FFFFFF; box-shadow:0 10px 20px rgba(14,165,233,.22); }
+.subtab-btn.active { color:var(--accent-cyan); border-bottom-color:var(--accent-cyan); }
+.cal-weekday { background:#F8FAFC; color:#64748B; border-color:var(--border-color); }
+.cal-day { background:#FFFFFF; border-color:var(--border-color); }
+.cal-day:hover:not(.cal-empty) { background:#F8FAFC; }
+.cal-day.cal-empty { background:#F9FAFB; }
+.cal-day.cal-today { border:2px solid #12AEB5 !important; background:#F0FDFA !important; box-shadow:inset 0 0 0 1px rgba(20,184,166,.14); }
+.today-monitoring-banner { background:linear-gradient(90deg,#12AEB5,#0EA5E9); color:#FFFFFF; }
+.today-chip { background:#12AEB5; color:#FFFFFF; }
+.day-num { color:var(--text-main); }
+/* CALENDAR STATUS COLORS — no purple status */
+.badge-critical { background:#FEE2E2; color:#B91C1C; border-left-color:#EF4444; }
+.badge-warning { background:#FEF3C7; color:#92400E; border-left-color:#F59E0B; }
+.badge-success { background:#DCFCE7; color:#166534; border-left-color:#10B981; }
+.badge-incoming,.badge-info,.badge-outgoing { background:#E0F2FE; color:#075985; border-left-color:#0EA5E9; }
+.badge-closed,.badge-neutral { background:#F1F5F9; color:#475569; border-left-color:#94A3B8; }
+.ev-badge { box-shadow:0 1px 1px rgba(15,23,42,.04); }
+.ev-badge:hover { filter:none; box-shadow:0 6px 14px rgba(15,23,42,.10); transform:translateX(2px) translateY(-1px); }
+.pill-danger { background:#FEE2E2; color:#B91C1C; border-color:#FECACA; }
+.pill-warning { background:#FEF3C7; color:#92400E; border-color:#FDE68A; }
+.pill-success { background:#DCFCE7; color:#166534; border-color:#BBF7D0; }
+.pill-info,.pill-cyan { background:#E0F2FE; color:#075985; border-color:#BAE6FD; }
+.pill-orange { background:#FFEDD5; color:#9A3412; border-color:#FED7AA; }
+.pill-neutral { background:#F1F5F9; color:#475569; border-color:#E2E8F0; }
+.data-table thead tr { background:#F8FAFC; }
+.data-table td { border-color:#EEF2F7; color:var(--text-main); }
+.data-table tbody tr:hover td { background:#F8FAFC; }
+.entity-id,.mono-text { color:#0EA5E9; }
+.legal-card,.branch-info-cell,.profile-merge-box { background:#F8FAFC; border-color:var(--border-color); }
+.checklist-item { background:#F8FAFC; border-color:#E5EAF2; color:#64748B; }
+.checklist-item.done { color:#0F172A; background:#F0FDF4; border-color:#BBF7D0; }
+.form-input,.form-select { background:#FFFFFF; color:var(--text-main); border-color:var(--border-color); }
+.modal-overlay { background:rgba(15,23,42,.42); }
+.modal-box { background:#FFFFFF; border-color:#DDEAF7; }
+.btn-modal-cancel,.panel-btn-ghost { background:#FFFFFF; color:var(--text-muted); border-color:var(--border-color); }
+.btn-wa-resend { background:#FFFFFF; }
+/* NOTIFICATION POPOVER — anchored below bell, scrollable, safe on mobile */
+#notif-backdrop { position:fixed; inset:0; background:rgba(15,23,42,.08); backdrop-filter:blur(1px); z-index:70; }
+.notif-popover { position:fixed; width:min(360px, calc(100vw - 32px)); max-height:min(440px, calc(100vh - 88px)); background:#FFFFFF; border:1px solid var(--border-color); box-shadow:0 22px 50px rgba(15,23,42,.18); z-index:90; overflow:hidden; color:var(--text-main); }
+.notif-popover-header { background:#F8FAFC; color:var(--text-main); border-bottom:1px solid var(--border-color); }
+.notif-list { max-height:min(365px, calc(100vh - 155px)); overflow-y:auto; }
+.notif-item { border-bottom:1px solid #EEF2F7; }
+.notif-item:hover { background:#F8FAFC; }
+.notif-item-title { color:var(--text-main); }
+/* CHEATSHEET DOCUMENT MODAL */
+.document-source-card { cursor:pointer; }
+.document-source-card::after { content:'Klik untuk daftar dokumen'; position:absolute; right:14px; bottom:10px; font-size:10px; font-weight:800; color:var(--accent-cyan); opacity:.88; }
+.doc-modal-box { width:860px; max-width:94vw; }
+.doc-modal-tools { display:flex; gap:10px; align-items:center; margin-bottom:14px; }
+.doc-search-wrap { position:relative; flex:1; }
+.doc-search-wrap i { position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--text-dim); }
+.doc-search-input { width:100%; padding:11px 12px 11px 36px; border:1px solid var(--border-color); border-radius:12px; font-family:inherit; outline:none; color:var(--text-main); background:#FFFFFF; }
+.doc-search-input:focus { border-color:#7DD3FC; box-shadow:0 0 0 4px rgba(14,165,233,.13); }
+.doc-list { display:flex; flex-direction:column; gap:8px; max-height:56vh; overflow:auto; padding-right:4px; }
+.doc-row { display:grid; grid-template-columns:34px 1fr auto; gap:12px; align-items:center; padding:12px; border:1px solid var(--border-color); border-radius:12px; background:#FFFFFF; }
+.doc-row:hover { background:#F8FAFC; border-color:#BAE6FD; }
+.doc-number { width:28px; height:28px; border-radius:9px; display:flex; align-items:center; justify-content:center; background:#E0F2FE; color:#075985; font-weight:800; font-size:12px; }
+.doc-title { font-weight:800; color:var(--text-main); margin-bottom:4px; font-size:13px; }
+.doc-desc { color:var(--text-muted); font-size:11px; line-height:1.5; margin-top:4px; }
+.doc-category-badge { display:inline-flex; align-items:center; gap:5px; width:max-content; padding:3px 8px; border-radius:999px; background:#F1F5F9; color:#475569; border:1px solid #E2E8F0; font-size:10px; font-weight:800; }
+.doc-download-btn { border:none; background:linear-gradient(135deg,#12AEB5,#0EA5E9); color:#FFFFFF; font-weight:800; border-radius:10px; padding:9px 12px; cursor:pointer; display:inline-flex; gap:7px; align-items:center; white-space:nowrap; }
+.doc-download-btn:hover { box-shadow:0 10px 20px rgba(14,165,233,.22); transform:translateY(-1px); }
+.doc-empty { text-align:center; padding:26px; color:var(--text-muted); border:1px dashed var(--border-color); border-radius:12px; background:#F8FAFC; }
+@media (max-width:1100px) { #context-panel { width:330px; } .metrics-grid { grid-template-columns:repeat(2,1fr); } .cheat-category-grid,.charts-grid { grid-template-columns:1fr; } }
+@media (max-width:900px) {
+    body { overflow:hidden; }
+    #sidebar { position:fixed; top:0; bottom:0; left:0; width:268px; transform:translateX(-100%); z-index:30; }
+    body.sidebar-mobile-open #sidebar { transform:translateX(0); }
+    body.sidebar-mobile-open #sidebar-backdrop { display:block; }
+    body.sidebar-collapsed #sidebar { width:268px; }
+    body.sidebar-collapsed .brand-text, body.sidebar-collapsed .sidebar-region span, body.sidebar-collapsed .menu-label, body.sidebar-collapsed .user-info, body.sidebar-collapsed .user-status { display:block; }
+    body.sidebar-collapsed .menu-item a { justify-content:flex-start; gap:11px; font-size:13px; padding:10px 12px; }
+    body.sidebar-collapsed .menu-badge { display:inline-flex; }
+    #top-navbar { padding:0 12px; height:auto; min-height:62px; flex-wrap:wrap; gap:8px; padding-top:10px; padding-bottom:10px; }
+    .navbar-left,.navbar-right { width:100%; }
+    .search-wrap { width:100%; flex:1; }
+    #main-workspace { flex-direction:column; }
+    #context-panel { width:100%; max-height:38vh; border-left:none; border-top:1px solid var(--border-color); }
+    #content-stream { padding:14px; }
+    .metrics-grid { grid-template-columns:1fr; }
+    .cal-days,.cal-weekdays { min-width:760px; }
+    .calendar-shell { overflow:auto; }
+    .doc-row { grid-template-columns:28px 1fr; }
+    .doc-download-btn { grid-column:2; justify-content:center; }
+}
+@media (max-width:560px) {
+    .breadcrumb,.live-clock,.nav-pill { display:none; }
+    .workspace-header { align-items:flex-start; }
+    .workspace-header-right { width:100%; }
+    .toolbar-btn,.toolbar-btn-gold,.month-nav { width:100%; justify-content:center; }
+    .month-nav { justify-content:space-between; }
+    .modal-footer { flex-direction:column; }
+}
+
+/* ================================================================
+   V7 UI PATCH — readable active scenarios, checklist milestones, search suggestions
+================================================================ */
+:root { --gray:#94A3B8; --gray-bg:#F1F5F9; --gray-b:#CBD5E1; }
+.badge-closed { background:var(--gray-bg); color:#64748B; border-left-color:var(--gray); }
+.pill-closed { background:var(--gray-bg); color:#64748B; border:1px solid var(--gray-b); }
+.cal-legend-item { color:var(--text-muted) !important; }
+.active-scenario-card { border:1px solid var(--border-color); border-radius:16px; padding:14px; background:#F8FAFC; box-shadow:0 8px 20px rgba(15,23,42,.04); }
+.active-scenario-list { display:flex; flex-direction:column; gap:10px; }
+.active-scenario-row { display:grid; grid-template-columns:44px minmax(0,1fr) auto; gap:12px; align-items:center; padding:12px; background:#FFFFFF; border:1px solid #E2E8F0; border-radius:12px; cursor:pointer; transition:all .18s ease; }
+.active-scenario-row:hover { border-color:var(--accent-cyan); transform:translateY(-1px); box-shadow:0 8px 18px rgba(14,165,233,.12); }
+.active-scenario-row.selected { border-color:var(--accent-cyan); box-shadow:0 0 0 3px rgba(14,165,233,.14); }
+.active-scenario-icon { width:36px; height:36px; display:flex; align-items:center; justify-content:center; border-radius:10px; font-size:14px; }
+.active-scenario-icon.critical { color:var(--red); background:var(--red-bg); }
+.active-scenario-icon.warning { color:var(--yellow); background:var(--yellow-bg); }
+.active-scenario-icon.info { color:var(--blue); background:var(--blue-bg); }
+.active-scenario-icon.success { color:var(--green); background:var(--green-bg); }
+.active-scenario-main { min-width:0; }
+.active-scenario-entity { color:var(--text-main); font-weight:800; font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.active-scenario-desc { color:var(--text-muted); font-size:11.5px; margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.active-scenario-status { margin-top:6px; }
+.active-scenario-date { color:#64748B; font-weight:700; font-size:12px; white-space:nowrap; }
+.active-back-btn { margin-bottom:2px; }
+.checklist-progress { display:flex; flex-direction:column; gap:8px; padding:10px 12px; border:1px solid #DDE7F2; background:#F8FAFC; border-radius:10px; margin-bottom:10px; }
+.checklist-progress strong { color:var(--text-main); font-size:12px; display:block; }
+.checklist-progress span { color:var(--text-muted); font-size:10.5px; display:block; margin-top:2px; }
+.progress-bar { height:7px; background:#E2E8F0; border-radius:999px; overflow:hidden; }
+.progress-bar > div { height:100%; background:var(--green); border-radius:999px; transition:width .2s ease; }
+.checklist-item.milestone { cursor:pointer; align-items:center; background:#F8FAFC; color:var(--text-muted); border-color:#DDE7F2; }
+.checklist-item.milestone:hover { border-color:var(--accent-cyan); background:#F0F9FF; }
+.checklist-item.milestone.done { background:#ECFDF5; color:var(--text-main); border-color:#86EFAC; }
+.checklist-toggle { border:0; background:transparent; cursor:pointer; padding:0; display:flex; align-items:center; justify-content:center; }
+.checklist-item.milestone .checklist-icon { font-size:18px; }
+.search-suggestions { position:absolute; left:0; right:0; top:calc(100% + 8px); background:#fff; border:1px solid #DDE7F2; border-radius:12px; box-shadow:0 18px 42px rgba(15,23,42,.14); z-index:1200; overflow:hidden; max-height:340px; overflow-y:auto; }
+.search-suggestion-item { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:11px 13px; cursor:pointer; border-bottom:1px solid #EEF2F7; }
+.search-suggestion-item:hover { background:#F0F9FF; }
+.search-suggestion-item strong { color:var(--text-main); font-size:12.5px; display:block; }
+.search-suggestion-item span { color:var(--text-muted); font-size:10.5px; display:block; margin-top:3px; }
+.search-suggestion-item i { color:var(--accent-cyan); }
+.search-suggestion-empty { padding:14px; color:var(--text-muted); font-size:12px; }
+.data-table strong, .branch-info-val, .legal-card-desc strong { color:var(--text-main) !important; }
+
+
+/* ================================================================
+   V8 REVISI LANJUTAN — sidebar ringkas, pill tabs, compact toast, table scroll, master map
+================================================================ */
+#tracker-subtabs-row{
+    display:flex !important;
+    gap:10px !important;
+    align-items:center;
+    border-bottom:none !important;
+    padding:8px !important;
+    margin-bottom:16px !important;
+    background:#F1F5F9;
+    border:1px solid #E2E8F0;
+    border-radius:16px;
+    width:max-content;
+    max-width:100%;
+    overflow-x:auto;
+}
+.subtab-btn{
+    background:#E0F2FE !important;
+    color:#0F172A !important;
+    border:1px solid #BAE6FD !important;
+    border-radius:12px !important;
+    padding:10px 16px !important;
+    font-weight:800 !important;
+    box-shadow:none !important;
+    white-space:nowrap;
+}
+.subtab-btn:hover{ background:#BAE6FD !important; color:#075985 !important; transform:translateY(-1px); }
+.subtab-btn.active{
+    background:linear-gradient(135deg,#12AEB5,#0EA5E9) !important;
+    color:#FFFFFF !important;
+    border-color:#0EA5E9 !important;
+    box-shadow:0 10px 20px rgba(14,165,233,.18) !important;
+}
+.subtab-btn.active .subtab-count{ background:rgba(255,255,255,.22) !important; color:#FFFFFF !important; }
+.subtab-count{ background:#FFFFFF !important; color:#075985 !important; border:1px solid #BAE6FD; padding:2px 7px !important; }
+
+#toast-container{
+    top:76px !important;
+    right:18px !important;
+    width:min(360px, calc(100vw - 28px));
+    gap:8px !important;
+    align-items:stretch;
+}
+.toast-card{
+    position:relative;
+    width:100%;
+    max-width:360px !important;
+    min-height:unset;
+    padding:11px 34px 11px 12px !important;
+    gap:9px !important;
+    background:#FFFFFF !important;
+    color:#0F172A !important;
+    border:1px solid #DDE7F2 !important;
+    border-left-width:4px !important;
+    box-shadow:0 12px 28px rgba(15,23,42,.14) !important;
+    font-size:11.7px !important;
+    line-height:1.42 !important;
+    opacity:1 !important;
+}
+.toast-card.toast-success{ border-left-color:#10B981 !important; }
+.toast-card.toast-wa{ border-left-color:#25D366 !important; }
+.toast-card.toast-danger{ border-left-color:#EF4444 !important; }
+.toast-card.toast-info{ border-left-color:#0EA5E9 !important; }
+.toast-icon{ font-size:15px !important; margin-top:1px; }
+.toast-card.toast-success .toast-icon{ color:#10B981; }
+.toast-card.toast-wa .toast-icon{ color:#25D366; }
+.toast-card.toast-danger .toast-icon{ color:#EF4444; }
+.toast-card.toast-info .toast-icon{ color:#0EA5E9; }
+.toast-body strong{ color:#0F172A; font-size:12px; margin-bottom:1px; }
+.toast-close{
+    position:absolute;
+    top:7px;
+    right:8px;
+    width:20px;
+    height:20px;
+    border:none;
+    border-radius:999px;
+    background:#F1F5F9;
+    color:#64748B;
+    cursor:pointer;
+    font-weight:900;
+    line-height:20px;
+}
+.toast-close:hover{ background:#E2E8F0; color:#0F172A; }
+
+.table-scroll-wrap{
+    width:100%;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+}
+.table-scroll-wrap .data-table{ min-width:980px; }
+.automation-table{ table-layout:auto; }
+.automation-table th:last-child,.automation-table td:last-child{ min-width:210px; white-space:nowrap; }
+
+.kpw-office-card{
+    margin-top:16px;
+    display:grid;
+    grid-template-columns:1fr 1.25fr;
+    gap:14px;
+}
+.kpw-info-card,.manado-map-card{
+    background:#FFFFFF;
+    border:1px solid var(--border-color);
+    border-radius:16px;
+    box-shadow:0 10px 24px rgba(15,23,42,.04);
+    padding:16px;
+}
+.kpw-info-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:12px;
+}
+.kpw-info-field{
+    background:#F8FAFC;
+    border:1px solid #E2E8F0;
+    border-radius:12px;
+    padding:10px 12px;
+}
+.kpw-info-label{
+    color:#64748B;
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+    margin-bottom:5px;
+}
+.kpw-info-value{
+    color:#0F172A;
+    font-size:12px;
+    font-weight:800;
+    line-height:1.45;
+}
+.kpw-map-link{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    width:max-content;
+    margin-top:12px;
+    padding:9px 12px;
+    border-radius:10px;
+    background:#E0F2FE;
+    color:#075985;
+    font-size:12px;
+    font-weight:900;
+    text-decoration:none;
+    border:1px solid #BAE6FD;
+}
+.kpw-map-link:hover{ background:#BAE6FD; }
+.manado-svg-wrap{
+    margin-top:12px;
+    border-radius:14px;
+    overflow:hidden;
+    border:1px solid #DDE7F2;
+    background:#EFF6FF;
+}
+.map-note{
+    margin-top:8px;
+    color:#64748B;
+    font-size:10.5px;
+    line-height:1.45;
+}
+.map-pin-label{
+    font-family:Inter, sans-serif;
+    font-size:10px;
+    font-weight:800;
+    fill:#0F172A;
+}
+.map-pin-dot{ fill:#EF4444; stroke:#FFFFFF; stroke-width:2; filter:drop-shadow(0 2px 3px rgba(15,23,42,.25)); }
+@media (max-width:1100px){ .kpw-office-card{ grid-template-columns:1fr; } }
+@media (max-width:680px){ .kpw-info-grid{ grid-template-columns:1fr; } }
+
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
 </head>
 <body>
 
-<div id="toast-container"></div>
+<div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+<div id="sidebar-backdrop" onclick="toggleSidebar(false)"></div>
+<div id="notif-backdrop" class="d-none" onclick="closeNotifPopover()"></div>
 
 <!-- ================== SIDEBAR ================== -->
 <nav id="sidebar">
     <div class="sidebar-brand">
-        <div class="brand-logo-wrap"><i class="fa-solid fa-building-columns" style="font-size:18px;color:#0A2540;"></i></div>
+        <div class="brand-logo-wrap"><i class="fa-solid fa-building-columns" style="font-size:18px;color:#ffffff;"></i></div>
         <div class="brand-text"><h1>BI-SSS</h1><p>Surveillance & Supervision System</p></div>
     </div>
     <div class="sidebar-region"><i class="fa-solid fa-location-dot"></i><span>KPwBI Sulawesi Utara — Manado</span></div>
@@ -390,7 +781,7 @@ body {
         <li class="menu-item" id="menu-exec" onclick="switchModule('exec')"><a><i class="fa-solid fa-chart-pie"></i> Dashboard Eksekutif</a></li>
         <li class="menu-item" id="menu-master" onclick="switchModule('master')"><a><i class="fa-solid fa-building"></i> Data Master Entitas</a></li>
         <span class="menu-label">Modul Pengawasan Terpadu</span>
-        <li class="menu-item active" id="menu-tracker" onclick="switchModule('tracker')"><a><i class="fa-solid fa-calendar-check"></i> KUPVA BB Tracker <span class="menu-badge" id="tracker-menu-badge">4</span></a></li>
+        <li class="menu-item active" id="menu-tracker" onclick="switchModule('tracker');switchTrackerSubtab('calendar')"><a><i class="fa-solid fa-calendar-check"></i> KUPVA BB Tracker <span class="menu-badge" id="tracker-menu-badge">0</span></a></li>
         <li class="menu-item" id="menu-cheatsheet" onclick="switchModule('cheatsheet')"><a><i class="fa-solid fa-book-open-reader"></i> Cheatsheet Dokumen & Skenario</a></li>
     </ul>
     <div class="sidebar-footer">
@@ -407,6 +798,7 @@ body {
 <div id="app-container">
     <header id="top-navbar">
         <div class="navbar-left">
+            <button class="sidebar-toggle-btn" id="sidebar-toggle-btn" onclick="toggleSidebar()" aria-label="Buka atau tutup sidebar"><i class="fa-solid fa-bars"></i></button>
             <div class="breadcrumb"><i class="fa-solid fa-building-columns" style="color:var(--accent-cyan);"></i><span>BI-SSS</span><i class="fa-solid fa-chevron-right" style="font-size:9px;"></i><span id="breadcrumb-active" class="crumb-active">KUPVA BB Tracker</span></div>
             <div class="search-wrap">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -442,13 +834,15 @@ body {
 
             <div class="automation-shell" id="global-automation-log">
                 <div class="automation-header">
-                    <div class="automation-title"><div class="wa-pulse"></div><i class="fa-brands fa-whatsapp" style="color:var(--wa-green);font-size:16px;"></i> Log Interkoneksi Otomatisasi WhatsApp Gateway & Surveillance Real-Time</div>
+                    <div class="automation-title"><div class="wa-pulse"></div><i class="fa-brands fa-whatsapp" style="color:var(--wa-green);font-size:16px;"></i> Log Otomatisasi WhatsApp & Surveillance Real-Time</div>
                     <span style="font-size:10.5px;color:var(--text-muted);font-weight:600;">Auto-refresh tiap 5 menit · 22 Juni 2026, 09:47 WIB</span>
                 </div>
-                <table class="data-table">
-                    <thead><tr><th>Waktu Pemicu</th><th>Nama Entitas KUPVA BB</th><th>Deteksi Aturan SLA / Jenis Notifikasi</th><th>Status Pengiriman Omni-Channel</th><th>Aksi Eskalasi Cepat</th></tr></thead>
-                    <tbody id="automation-log-rows"></tbody>
-                </table>
+                <div class="table-scroll-wrap">
+                    <table class="data-table automation-table">
+                        <thead><tr><th>Waktu Pemicu</th><th>Nama Entitas KUPVA BB</th><th>Deteksi Aturan SLA / Jenis Notifikasi</th><th>Aksi Eskalasi Cepat</th></tr></thead>
+                        <tbody id="automation-log-rows"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -591,22 +985,13 @@ const DB = {
 
         { id:'sulut-002', day:22, month:5, year:2026, type:'critical', kpiFilter:'warnings', badgeClass:'badge-critical', badgeIcon:'fa-triangle-exclamation',
           entity:'PT Sentralindo Valutama', entityId:'KUPVA-SULUT-2019-008', entityShort:'Sentralindo', location:'Jl. Piere Tendean No. 120, Manado, Sulawesi Utara',
-          title:'KRITIKAL — Deteksi APU/CFT: Pembawaan UKA > Rp 1 Miliar', shortTitle:'Deteksi AML/CFT', status:'Kritis — Investigasi Aktif',
+          title:'KRITIKAL — Deteksi APU/CFT: Pembawaan UKA > Rp 1 Miliar', shortTitle:'Deteksi APU/PPT', status:'Kritis — Investigasi Aktif',
           countdown:'Wajib LTKM ke PPATK: Maks. 3 Hari Kerja', countdownLabel:"Batas Lapor: Jum'at, 26 Juni 2026 — PBI No. 10/2024 Ps. 61", countdownType:'critical',
           law:'PBI No. 10 Tahun 2024 & PADG No. 15 Tahun 2025', lawDetail:'Penerapan APU PPT PPPSPM — Pelaporan LTKM ke PPATK',
-          description:'Terdeteksi anomali transaksi Pembawaan Uang Kertas Asing (UKA) melebihi batas nominal ekuivalen Rp 1.250.000.000 tanpa disertai dokumen dasar (underlying) yang sah. Berdasarkan PBI No. 10 Tahun 2024 Pasal 61, entitas wajib menyampaikan Laporan Transaksi Keuangan Mencurigakan (LTKM) ke PPATK melalui aplikasi GRIPS paling lama 3 (tiga) hari kerja setelah penetapan status TKM oleh Pejabat Kepatuhan.',
-          amlDetails:{ nilaiTransaksi:'Rp 1.250.000.000', matauang:'USD (setara ± USD 76.900)', tglTransaksi:'22 Juni 2026, 09:47 WIB', batasLapor:'26 Juni 2026 (3 Hari Kerja)', aplikasi:'GRIPS — Gateway PPATK', pejabatKepatuhan:'Theodorus Wenas, SE (PK Internal)' },
+          description:'Terdeteksi anomali transaksi Pembawaan Uang Kertas Asing (UKA) melebihi batas nominal ekuivalen Rp 1.250.000.000 tanpa disertai dokumen dasar (underlying) yang sah. Berdasarkan PBI No. 10 Tahun 2024 Pasal 61, entitas wajib menyampaikan Laporan Transaksi Keuangan Mencurigakan (LTKM) ke PPATK melalui aplikasi Sistem Pelaporan PPATK paling lama 3 (tiga) hari kerja setelah penetapan status TKM oleh Pejabat Kepatuhan.',
+          amlDetails:{ nilaiTransaksi:'Rp 1.250.000.000', matauang:'USD (setara ± USD 76.900)', tglTransaksi:'22 Juni 2026, 09:47 WIB', batasLapor:'26 Juni 2026 (3 Hari Kerja)', aplikasi:'Sistem Pelaporan PPATK', pejabatKepatuhan:'Theodorus Wenas, SE (PK Internal)' },
           sla:100, slaColor:'#ef4444', namaDir:'Theodorus Wenas, SE', modal:'Rp 5.000.000.000', cabang:'7 Kantor (Sulut)', izinExpiry:'15 Maret 2027' },
 
-        { id:'sulut-003', day:15, month:5, year:2026, type:'submitted', kpiFilter:'pending', badgeClass:'badge-success', badgeIcon:'fa-check-circle',
-          entity:'PT Haji La Tunrung', entityId:'KUPVA-SULSEL-2020-012', entityShort:'Haji La Tunrung', location:'HQ: Makassar (Sulsel) | Cabang Baru: Jl. Pierre Tendean No. 45, Manado (Sulut)',
-          title:'Laporan Pembukaan Kantor Cabang Sulut — Menunggu Verifikasi BI', shortTitle:'Pembukaan Cabang Sulut', status:'Berkas Diterima — Menunggu Konfirmasi BI',
-          countdown:'Diserahkan 15 Juni 2026 — 7 Hari Lalu', countdownLabel:'Estimasi Konfirmasi BI KPwDN: 25 Juni — 2 Juli 2026', countdownType:'pending',
-          law:'SE No. 18/42/DKSP Halaman 16', lawDetail:'Prosedur Laporan Realisasi Operasional Kantor Cabang Baru',
-          description:'Penyelenggara KUPVA BB wajib memulai kegiatan usaha fisik di kantor cabang baru maksimal 30 (tiga puluh) hari kalender sejak tanggal izin BI diterbitkan, dan menyampaikan laporan tertulis realisasi dimulainya operasional kepada Kantor Perwakilan BI paling lambat 10 (sepuluh) hari kerja sejak operasional dimulai. PT Haji La Tunrung telah menyerahkan laporan realisasi pada 15 Juni 2026 dan sedang menunggu konfirmasi resmi dari BI KPwDN Sulawesi Utara.',
-          branchDetails:{ tglIzinBI:'2 Juni 2026', tglMulaiOps:'10 Juni 2026', tglLaporDiserahkan:'15 Juni 2026', alamatCabang:'Jl. Pierre Tendean No. 45, Wenang, Manado 95111', kepalaCabang:'Dr. Rahman Hakim, SE, MM (SPPUR Certified)' },
-          checklist:[ {done:true,item:'Surat permohonan izin pembukaan cabang ke BI KPw Sulawesi Utara'}, {done:true,item:'Dokumen studi kelayakan bisnis regional Sulawesi Utara'}, {done:true,item:'Bukti penguasaan kantor (kontrak sewa 5 tahun, Jl. Pierre Tendean)'}, {done:true,item:'Bukti kesiapan sistem IT & koneksi jaringan operasional'}, {done:true,item:'Sertifikat Kompetensi SPPUR Kepala Kantor Cabang'}, {done:false,item:'Konfirmasi & pengesahan tertulis dari BI KPwDN Sulut (MENUNGGU)'} ],
-          sla:40, slaColor:'#3b82f6', namaDir:'La Tunrung, SE (Direktur Utama)', modal:'Rp 7.500.000.000', cabang:'9 Kantor + 1 Cabang Baru (Sulut)', izinExpiry:'10 Agustus 2028' },
 
         { id:'sulut-004', day:29, month:5, year:2026, type:'incoming', kpiFilter:'pending', badgeClass:'badge-info', badgeIcon:'fa-file-circle-plus',
           entity:'PT Wale Bunaken', entityId:'KUPVA-SULUT-2026-NEW', entityShort:'Wale Bunaken', location:'Jl. Wolter Monginsidi No. 22, Manado, Sulawesi Utara (Rencana)',
@@ -619,16 +1004,15 @@ const DB = {
     ],
 
     additionalEvents: [
-        { day:3, month:5, year:2026, type:'outgoing', badgeClass:'badge-outgoing', badgeIcon:'fa-arrow-up', entityShort:'Arthaindo', shortTitle:'SP1 Otomatis', title:'Pemicu SP1 Otomatis — LKU Mei Terlambat', status:'Overdue', entity:'Arthaindo Valas Manado', law:'PADG No. 23/37/PADG/2021', desc:'Surat Peringatan I (SP1) diterbitkan otomatis akibat keterlambatan LKU Bulanan Mei 2026 melebihi 7 hari kerja dari batas tanggal 15.' },
+        { day:3, month:5, year:2026, type:'critical', badgeClass:'badge-critical', badgeIcon:'fa-triangle-exclamation', entityShort:'Arthaindo', shortTitle:'SP1 Otomatis', title:'Pemicu SP1 Otomatis — LKU Mei Terlambat', status:'Overdue', entity:'Arthaindo Valas Manado', law:'PADG No. 23/37/PADG/2021', desc:'Surat Peringatan I (SP1) diterbitkan otomatis akibat keterlambatan LKU Bulanan Mei 2026 melebihi 7 hari kerja dari batas tanggal 15.' },
         { day:10, month:5, year:2026, type:'success', badgeClass:'badge-success', badgeIcon:'fa-check', entityShort:'Borneo Valas', shortTitle:'FDL On-Site Selesai', title:'Entry Meeting On-Site Inspection Selesai', status:'Completed', entity:'PT Borneo Valas Sulut', law:'PBI No. 18/20/PBI/2016', desc:'Pemeriksaan lapangan (on-site inspection) oleh tim pengawas BI KPwDN Sulut telah diselesaikan. FDL diterima 1 hari kerja sebelum entry meeting sesuai ketentuan.' },
-        { day:20, month:5, year:2026, type:'incoming', badgeClass:'badge-incoming', badgeIcon:'fa-money-bill', entityShort:'Pacific FX', shortTitle:'LTKT Dilaporkan', title:'Pelaporan LTKT Transaksi Tunai > Threshold', status:'Completed', entity:'Pacific Exchange Sulut', law:'PBI No. 10 Tahun 2024 Ps. 62', desc:'LTKT berhasil dikirimkan ke PPATK via GRIPS dalam batas 14 hari kerja sejak transaksi tunai senilai Rp 780.000.000 dilakukan pada 2 Juni 2026.' },
+        { day:20, month:5, year:2026, type:'incoming', badgeClass:'badge-incoming', badgeIcon:'fa-money-bill', entityShort:'Pacific FX', shortTitle:'LTKT Dilaporkan', title:'Pelaporan LTKT Transaksi Tunai > Threshold', status:'Completed', entity:'Pacific Exchange Sulut', law:'PBI No. 10 Tahun 2024 Ps. 62', desc:'LTKT berhasil dikirimkan ke PPATK ke PPATK dalam batas 14 hari kerja sejak transaksi tunai senilai Rp 780.000.000 dilakukan pada 2 Juni 2026.' },
         { day:30, month:5, year:2026, type:'incoming', badgeClass:'badge-incoming', badgeIcon:'fa-file-lines', entityShort:'Multi Entitas', shortTitle:'LKU Bulanan Jatuh', title:'Batas Akhir LKU Bulanan Juni 2026 (15 Juli)', status:'Upcoming', entity:'Semua KUPVA BB Sulut', law:'SE No. 18/42/DKSP Hal. 34', desc:'LKU Bulanan Juni 2026 jatuh tempo paling lambat tanggal 15 Juli 2026 untuk seluruh KUPVA BB terdaftar di wilayah pengawasan KPwBI Sulawesi Utara.' }
     ],
 
     masterEntities: [
         { id:'KUPVA-SULUT-2021-043', name:'PT Dua Sisi Sentosa', location:'Manado', status:'Aktif', cabang:'3 Kantor', modal:'Rp 2.500.000.000', risiko:'Sedang', namaDir:'Michael Rindengan, SE', izinExpiry:'24 Juni 2026' },
         { id:'KUPVA-SULUT-2019-008', name:'PT Sentralindo Valutama', location:'Manado', status:'Pengawasan Khusus', cabang:'7 Kantor', modal:'Rp 5.000.000.000', risiko:'Tinggi', namaDir:'Theodorus Wenas, SE', izinExpiry:'15 Maret 2027' },
-        { id:'KUPVA-SULSEL-2020-012', name:'PT Haji La Tunrung', location:'Makassar + Sulut', status:'Ekspansi Aktif', cabang:'9 Kantor + 1 Baru', modal:'Rp 7.500.000.000', risiko:'Rendah', namaDir:'La Tunrung, SE', izinExpiry:'10 Agustus 2028' },
         { id:'KUPVA-SULUT-2026-NEW', name:'PT Wale Bunaken', location:'Manado (Rencana)', status:'Permohonan Baru', cabang:'1 Kantor (Rencana)', modal:'Rp 1.000.000.000', risiko:'Sedang', namaDir:'Fredy Tumewu, SH', izinExpiry:'Belum Berlaku' },
         { id:'KUPVA-SULUT-2018-011', name:'Arthaindo Valas Manado', location:'Manado', status:'Teguran Aktif', cabang:'2 Kantor', modal:'Rp 1.800.000.000', risiko:'Sedang', namaDir:'James Polii, SE', izinExpiry:'7 Desember 2026' },
         { id:'KUPVA-SULUT-2020-033', name:'Pacific Exchange Sulut', location:'Bitung', status:'Aktif', cabang:'4 Kantor', modal:'Rp 3.200.000.000', risiko:'Rendah', namaDir:'Stephanie Rompas, MM', izinExpiry:'18 Februari 2025' }
@@ -643,15 +1027,13 @@ const DB = {
 
     amlLogs: [
         { entity:'PT Sentralindo Valutama', type:'TKM — Transaksi Keuangan Mencurigakan', value:'Rp 1.250.000.000 (UKA Terlanggar)', date:'22 Juni 2026', status:'Belum Melapor ke PPATK', sla:'Maks. 3 Hari Kerja (26/06)', risk:'KRITIKAL' },
-        { entity:'PT Haji La Tunrung', type:'LTKT — Transaksi Keuangan Tunai Besar', value:'Rp 850.000.000 (Setara USD 52.200)', date:'18 Juni 2026', status:'Telah Dilaporkan ke PPATK', sla:'Tepat Waktu (< 14 Hari)', risk:'Sedang' },
-        { entity:'Pacific Exchange Sulut', type:'TKM — Dugaan Splitting Transaksi Valuta', value:'Ekuivalen USD 31.500 (Patah-patah)', date:'19 Juni 2026', status:'Diteruskan via GRIPS', sla:'Tepat Waktu (3 Hari)', risk:'Rendah' },
+        { entity:'Pacific Exchange Sulut', type:'TKM — Dugaan Splitting Transaksi Valuta', value:'Ekuivalen USD 31.500 (Patah-patah)', date:'19 Juni 2026', status:'Diteruskan ke PPATK', sla:'Tepat Waktu (3 Hari)', risk:'Rendah' },
         { entity:'Arthaindo Valas Manado', type:'CDD — Gagal Identifikasi Nasabah Berisiko', value:'Profil Nasabah Tidak Lengkap (3 TRX)', date:'15 Juni 2026', status:'Dalam Klarifikasi Internal', sla:'Melebihi SLA EDD (> 3 Hari)', risk:'Sedang' }
     ],
 
     automationLogs: [
-        { waktu:'22 Jun 2026 · 09:52 WIB', entity:'PT Sentralindo Valutama', deteksi:'TKM KRITIKAL: Pembawaan UKA > Rp 1 Miliar Terdeteksi — SLA 3 Hari Kerja', portalStatus:'SP-Darurat Diterbitkan via Portal BI', waStatus:'WhatsApp Automated Reminder Delivered', pillClass:'pill-danger' },
-        { waktu:'22 Jun 2026 · 08:30 WIB', entity:'PT Dua Sisi Sentosa', deteksi:'IZIN USAHA MENDEKATI KADALUARSA: Perpanjangan Wajib Diajukan Sebelum 24 Juni 2026', portalStatus:'Reminder Otomatis Terkirim via Portal', waStatus:'WhatsApp Automated Reminder Delivered', pillClass:'pill-warning' },
-        { waktu:'15 Jun 2026 · 16:10 WIB', entity:'PT Haji La Tunrung', deteksi:'LAPORAN CABANG DITERIMA: Menunggu Konfirmasi BI KPwDN Sulut', portalStatus:'Konfirmasi Penerimaan Dokumen via Portal BI', waStatus:'WhatsApp Konfirmasi Penerimaan Terkirim', pillClass:'pill-info' },
+        { waktu:'22 Jun 2026 · 09:52 WIB', entity:'PT Sentralindo Valutama', deteksi:'TKM KRITIKAL: Pembawaan UKA > Rp 1 Miliar Terdeteksi — SLA 3 Hari Kerja', portalStatus:'SP-Darurat Diterbitkan via Portal BI', waStatus:'Reminder WhatsApp siap dikirim', pillClass:'pill-danger' },
+        { waktu:'22 Jun 2026 · 08:30 WIB', entity:'PT Dua Sisi Sentosa', deteksi:'IZIN USAHA MENDEKATI KADALUARSA: Perpanjangan Wajib Diajukan Sebelum 24 Juni 2026', portalStatus:'Reminder Otomatis Terkirim via Portal', waStatus:'Reminder WhatsApp siap dikirim', pillClass:'pill-warning' },
         { waktu:'22 Jun 2026 · 07:00 WIB', entity:'PT Wale Bunaken', deteksi:'MILESTONE PENGAJUAN: Checklist Persiapan Dokumen Izin Baru Belum 100%', portalStatus:'Notifikasi Checklist Belum Lengkap via Portal', waStatus:'WhatsApp Reminder Persiapan Dokumen Terkirim', pillClass:'pill-cyan' },
         { waktu:'03 Jun 2026 · 08:00 WIB', entity:'Arthaindo Valas Manado', deteksi:'SLA LKU TERLANGGAR: Laporan Mei 2026 Terlambat > 7 Hari Kerja', portalStatus:'SP-1 Tertulis Diterbitkan Otomatis via Portal BI', waStatus:'WhatsApp SP1 Reminder Terkirim', pillClass:'pill-warning' }
     ],
@@ -676,7 +1058,7 @@ const DB = {
         { kode:'D', nama:'Perubahan Struktur Kepengurusan/Pemegang Saham', prosedur:'Sampaikan berkas calon pengurus/pemegang saham → Fit and Proper Test di BI → Terima persetujuan tertulis → Eksekusi pengangkatan via RUPS.', dokumen:'CV lengkap calon, identitas legal, surat pernyataan integritas, Sertifikat SPPUR tingkat pengurus.', batasWaktu:'Wajib persetujuan tertulis BI (prior approval) sebelum perubahan disahkan & dilaksanakan.', dasarHukum:'PBI No. 18/20/PBI/2016 Pasal 28 ayat (1)' },
         { kode:'E', nama:'Perubahan Modal Disetor atau Penamaan PT', prosedur:'RUPS luar biasa → Akta notaris perubahan anggaran dasar → Pengesahan Menkumham → Laporan tertulis ke BI.', dokumen:'Salinan Akta Perubahan Anggaran Dasar, SK Pengesahan Menkumham, bukti rekening koran penyetoran modal (jika ada).', batasWaktu:'Dilaporkan tertulis setelah memperoleh pengesahan resmi Kemenkumham.', dasarHukum:'PBI No. 18/20/PBI/2016 Pasal 29 ayat (1)' },
         { kode:'F', nama:'Pelaksanaan Audit Lapangan (On-Site BI)', prosedur:'Terima pemberitahuan rencana audit → Susun & serahkan dokumen pra-pemeriksaan → Entry meeting s.d. Exit meeting.', dokumen:'Bundel First Day Letter (FDL), log book transaksi harian, formulir CDD/EDD, bukti mutasi brankas, SOP internal perlindungan konsumen.', batasWaktu:'FDL wajib diserahkan lengkap 1 hari kerja sebelum Entry Meeting dimulai.', dasarHukum:'PBI No. 10/2024; PADG No. 15/2025; SE No. 18/42/DKSP' },
-        { kode:'G', nama:'Indikasi Transaksi Keuangan Mencurigakan (TKM)', prosedur:'Frontliner identifikasi pola tidak wajar → Petugas Kepatuhan analisis mendalam → Direksi tetapkan status TKM → Kirim LTKM elektronik ke PPATK.', dokumen:'Formulir digital LTKM via aplikasi GRIPS, dokumen identitas pengguna jasa, kronologi analisis internal, bukti mutasi transaksi valas.', batasWaktu:'Wajib dilaporkan maksimal 3 hari kerja sejak penetapan status TKM.', dasarHukum:'PBI No. 10 Tahun 2024 Pasal 61' },
+        { kode:'G', nama:'Indikasi Transaksi Keuangan Mencurigakan (TKM)', prosedur:'Frontliner identifikasi pola tidak wajar → Petugas Kepatuhan analisis mendalam → Direksi tetapkan status TKM → Kirim LTKM elektronik ke PPATK.', dokumen:'Formulir digital LTKM melalui sistem pelaporan PPATK, dokumen identitas pengguna jasa, kronologi analisis internal, bukti mutasi transaksi valas.', batasWaktu:'Wajib dilaporkan maksimal 3 hari kerja sejak penetapan status TKM.', dasarHukum:'PBI No. 10 Tahun 2024 Pasal 61' },
         { kode:'H', nama:'Transaksi Tunai Jumlah Besar (Threshold TKT)', prosedur:'Nasabah tukar valas/rupiah tunai melebihi threshold → Sistem mencatat transaksi → Kompilasi & kirim LTKT elektronik.', dokumen:'Formulir LTKT, salinan identitas legal nasabah, bukti nota/kuitansi transaksi, formulir verifikasi dana tunai.', batasWaktu:'Wajib dilaporkan elektronik maksimal 14 hari kerja sejak tanggal transaksi.', dasarHukum:'PBI No. 10 Tahun 2024 Pasal 62' },
         { kode:'I', nama:'Pembelian UKA Melebihi Threshold Bulanan', prosedur:'Nasabah ajukan pembelian UKA → Sistem deteksi akumulasi melampaui threshold → Wajib minta dokumen underlying sebelum eksekusi.', dokumen:'Dokumen underlying sah (tiket internasional, visa, invoice luar negeri/pendidikan), pernyataan tertulis keabsahan underlying bermeterai.', batasWaktu:'Diperiksa & diverifikasi seketika (real-time) sebelum transaksi di atas threshold dieksekusi.', dasarHukum:'PBI No. 18/20/PBI/2016 Pasal 19' },
         { kode:'J', nama:'Penanganan Keluhan/Pengaduan Konsumen', prosedur:'Terima keluhan tertulis/lisan → Registrasi & tanda terima → Investigasi internal → Tanggapan tertulis ke konsumen → Laporan rekap ke BI.', dokumen:'Formulir registrasi pengaduan, salinan identitas konsumen, kronologi sengketa & struk transaksi, surat tanggapan resmi, Laporan Berkala Penanganan Pengaduan.', batasWaktu:'Sengketa internal rampung maksimal 20 hari kerja sejak keluhan diterima lengkap.', dasarHukum:'PBI No. 3 Tahun 2023 Pasal 40 & Pasal 53' }
@@ -699,16 +1081,22 @@ const DB = {
 function ds(...parts) { return parts.filter(Boolean).join(' ').toLowerCase(); }
 
 function showToast(message, type, title, duration) {
-    type = type || 'success'; duration = (duration === undefined) ? 4000 : duration;
+    type = type || 'success';
+    duration = (duration === undefined) ? 4500 : duration;
     const container = document.getElementById('toast-container');
+    if (!container) return;
     const toast = document.createElement('div');
     const icons = { success:'fa-circle-check', wa:'fa-brands fa-whatsapp', danger:'fa-circle-exclamation', info:'fa-circle-info' };
     const icon = icons[type] || icons.success;
     toast.className = `toast-card toast-${type}`;
-    toast.innerHTML = `<i class="fa-solid ${icon} toast-icon"></i><div class="toast-body">${title ? `<strong>${title}</strong>` : ''}${message}</div>`;
-    container.appendChild(toast);
+    toast.innerHTML = `<i class="fa-solid ${icon} toast-icon"></i><div class="toast-body">${title ? `<strong>${title}</strong>` : ''}${message}</div><button class="toast-close" type="button" aria-label="Tutup notifikasi" onclick="this.closest('.toast-card').remove()">×</button>`;
+    container.prepend(toast);
     if (duration) {
-        setTimeout(() => { toast.style.animation = 'toastOut .3s ease forwards'; setTimeout(() => toast.remove(), 300); }, duration);
+        setTimeout(() => {
+            if (!toast.isConnected) return;
+            toast.style.animation = 'toastOut .25s ease forwards';
+            setTimeout(() => toast.remove(), 260);
+        }, duration);
     }
 }
 function getPillClass(risiko) {
@@ -754,16 +1142,16 @@ function renderToolbar(opts) {
     let html = '';
     if (opts.showMonthNav) {
         html += `<div class="month-nav">
-            <button class="month-nav-btn" onclick="navigateMonth(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="month-nav-btn" onclick="navigateMonth(-1)" aria-label="Bulan sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
             <span id="month-nav-label">${MONTH_NAMES_ID[viewMonth]} ${viewYear}</span>
-            <button class="month-nav-btn" onclick="navigateMonth(1)"><i class="fa-solid fa-chevron-right"></i></button>
+            <button class="month-nav-btn" onclick="navigateMonth(1)" aria-label="Bulan berikutnya"><i class="fa-solid fa-chevron-right"></i></button>
         </div>`;
     }
     if (opts.showAddBtn) {
         html += `<button class="toolbar-btn toolbar-btn-gold" onclick="openAddEntityModal()"><i class="fa-solid fa-plus"></i> Tambah Entitas / Kewajiban</button>`;
     }
     if (opts.showFilterExport) {
-        html += `<button class="toolbar-btn"><i class="fa-solid fa-filter"></i> Filter</button><button class="toolbar-btn"><i class="fa-solid fa-download"></i> Ekspor</button>`;
+        html += `<button class="toolbar-btn" onclick="showToast('Filter lanjutan siap dikembangkan sesuai kebutuhan produksi.','info','Filter Kalender',3000)"><i class="fa-solid fa-filter"></i> Filter</button><button class="toolbar-btn" onclick="exportTrackerExcel()"><i class="fa-solid fa-file-excel"></i> Ekspor</button>`;
     }
     tb.innerHTML = html;
     tb.style.display = html ? 'flex' : 'none';
@@ -830,7 +1218,7 @@ function renderLiveCalendar() {
                 <div class="cal-legend">
                     <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--red);"></div>Kritikal AML</div>
                     <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--yellow);"></div>Batas Waktu</div>
-                    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--green);"></div>Selesai/Pending BI</div>
+                    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--green);"></div>Selesai</div>
                     <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--blue);"></div>Milestone Baru</div>
                 </div>
             </div>
@@ -861,18 +1249,24 @@ function renderTrackerModule() {
 }
 
 function renderTrackerSubtabBar() {
-    const sanctionCount = DB.sanctionsPipeline.length;
+    const sanctionCount = DB.sanctionsPipeline.filter(s => s.active !== false && s.tingkat !== 'success').length;
     const amlCount = DB.amlLogs.length;
+    const tabLabel = currentTrackerSubtab === 'calendar' ? 'Kalender Kepatuhan' : currentTrackerSubtab === 'sanctions' ? 'Sanksi' : 'APU/PPT';
     document.getElementById('tracker-subtabs-row').innerHTML = `
-        <button class="subtab-btn ${currentTrackerSubtab==='calendar'?'active':''}" onclick="switchTrackerSubtab('calendar')"><i class="fa-solid fa-calendar-days"></i> Kalender & Kepatuhan</button>
-        <button class="subtab-btn ${currentTrackerSubtab==='sanctions'?'active':''}" onclick="switchTrackerSubtab('sanctions')"><i class="fa-solid fa-scale-balanced"></i> Sanksi & Denda <span class="subtab-count">${sanctionCount}</span></button>
-        <button class="subtab-btn ${currentTrackerSubtab==='aml'?'active':''}" onclick="switchTrackerSubtab('aml')"><i class="fa-solid fa-file-shield"></i> AML/CFT & PPATK <span class="subtab-count">${amlCount}</span></button>
+        <button class="subtab-btn ${currentTrackerSubtab==='calendar'?'active':''}" onclick="switchTrackerSubtab('calendar')"><i class="fa-solid fa-calendar-days"></i> Kalender Kepatuhan</button>
+        <button class="subtab-btn ${currentTrackerSubtab==='sanctions'?'active':''}" onclick="switchTrackerSubtab('sanctions')"><i class="fa-solid fa-scale-balanced"></i> Sanksi <span class="subtab-count">${sanctionCount}</span></button>
+        <button class="subtab-btn ${currentTrackerSubtab==='aml'?'active':''}" onclick="switchTrackerSubtab('aml')"><i class="fa-solid fa-file-shield"></i> APU/PPT <span class="subtab-count">${amlCount}</span></button>
     `;
 }
 
 function switchTrackerSubtab(tab) {
     playClickSound();
     currentTrackerSubtab = tab;
+    currentModule = 'tracker';
+    document.querySelectorAll('.menu-item').forEach(li => li.classList.remove('active'));
+    const trackerMenu = document.getElementById('menu-tracker');
+    if (trackerMenu) trackerMenu.classList.add('active');
+    document.getElementById('breadcrumb-active').textContent = tab === 'sanctions' ? 'KUPVA BB Tracker / Sanksi' : (tab === 'aml' ? 'KUPVA BB Tracker / APU/PPT' : 'KUPVA BB Tracker');
     currentKpiFilter = null;
     document.querySelectorAll('.metric-card').forEach(c => c.classList.remove('kpi-active'));
     hideBackButton();
@@ -909,7 +1303,7 @@ function renderKpiCards() {
         document.getElementById('kpi-matrix-section').innerHTML = `
             <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">Indikasi TKM Kritis</p><p class="metric-value text-critical">${kritikal} Kasus</p><p class="metric-sub">Wajib LTKM ke PPATK</p></div><div class="metric-icon icon-warnings"><i class="fa-solid fa-shield-halved"></i></div></div>
             <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">Belum Melapor</p><p class="metric-value" style="color:#fbbf24;">${belum} Log</p><p class="metric-sub">SLA Berjalan</p></div><div class="metric-icon icon-upcoming"><i class="fa-solid fa-hourglass-half"></i></div></div>
-            <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">Telah Dilaporkan PPATK</p><p class="metric-value" style="color:#34d399;">${DB.amlLogs.length - belum} Log</p><p class="metric-sub">Via Aplikasi GRIPS</p></div><div class="metric-icon icon-green"><i class="fa-solid fa-paper-plane"></i></div></div>
+            <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">Telah Dilaporkan PPATK</p><p class="metric-value" style="color:#34d399;">${DB.amlLogs.length - belum} Log</p><p class="metric-sub">Via Aplikasi Sistem Pelaporan PPATK</p></div><div class="metric-icon icon-green"><i class="fa-solid fa-paper-plane"></i></div></div>
             <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">Total Log Transaksi</p><p class="metric-value" style="color:var(--accent-cyan);">${DB.amlLogs.length}</p><p class="metric-sub">Surveillance Aktif</p></div><div class="metric-icon icon-total"><i class="fa-solid fa-file-shield"></i></div></div>`;
         return;
     }
@@ -919,7 +1313,7 @@ function renderKpiCards() {
         <div class="metric-card" id="card-upcoming" onclick="toggleKpiFilter('upcoming', this)"><div class="metric-card-left"><p class="metric-label">Batas Waktu Pekan Ini (SLA)</p><p class="metric-value" style="color:#fbbf24;">${c.upcoming}</p><p class="metric-sub">Mendekati tenggat</p></div><div class="metric-icon icon-upcoming"><i class="fa-solid fa-hourglass-half"></i></div></div>
         <div class="metric-card" id="card-warnings" onclick="toggleKpiFilter('warnings', this)"><div class="metric-card-left"><p class="metric-label">Peringatan Belum Terselesaikan</p><p class="metric-value text-critical">${c.warnings}</p><p class="metric-sub">Investigasi aktif</p></div><div class="metric-icon icon-warnings"><i class="fa-solid fa-triangle-exclamation"></i></div></div>
         <div class="metric-card" id="card-total" onclick="resetToTrackerDefault()"><div class="metric-card-left"><p class="metric-label">Total KUPVA BB Diawasi (Sulut)</p><p class="metric-value" style="color:var(--accent-cyan);">${c.total}</p><p class="metric-sub">KPwBI Sulawesi Utara</p></div><div class="metric-icon icon-total"><i class="fa-solid fa-shield-halved"></i></div></div>`;
-    document.getElementById('tracker-menu-badge').textContent = c.warnings + c.upcoming;
+    document.getElementById('tracker-menu-badge').textContent = c.active;
 }
 
 function resetToTrackerDefault() {
@@ -1009,7 +1403,7 @@ function renderWarningsQueue() {
 function renderSanctionsSubtab() {
     hideBackButton();
     renderToolbar({ showMonthNav:false, showAddBtn:true, showFilterExport:false });
-    document.getElementById('workspace-title').textContent = 'KUPVA BB Tracker — Sanksi & Penegakan Hukum (Enforcement Pipeline)';
+    document.getElementById('workspace-title').textContent = 'KUPVA BB Tracker — Sanksi';
     const rows = DB.sanctionsPipeline.map(s => `
         <tr data-search="${ds(s.entity,s.violation,s.status)}" onclick="loadEntitySanctionPanel('${s.entity}')">
             <td><span class="entity-name">${s.entity}</span></td>
@@ -1045,7 +1439,7 @@ function loadEntitySanctionPanel(name) {
 function renderAmlSubtab() {
     hideBackButton();
     renderToolbar({ showMonthNav:false, showAddBtn:true, showFilterExport:false });
-    document.getElementById('workspace-title').textContent = 'KUPVA BB Tracker — Matriks AML/CFT & Pelaporan PPATK';
+    document.getElementById('workspace-title').textContent = 'KUPVA BB Tracker — Matriks Laporan APU/PPT';
     const riskPill = (r) => r==='KRITIKAL' ? `<span class="pill pill-danger">${r}</span>` : r==='Sedang' ? `<span class="pill pill-warning">${r}</span>` : `<span class="pill pill-success">${r}</span>`;
     const rows = DB.amlLogs.map(a => `
         <tr data-search="${ds(a.entity,a.type,a.value,a.status)}" onclick="loadEntityAmlPanel('${a.entity}')">
@@ -1075,10 +1469,10 @@ function loadEntityAmlPanel(name) {
     document.getElementById('panel-title').textContent = aml.entity;
     document.getElementById('panel-sub').innerHTML = `<i class="fa-solid fa-file-shield"></i>&nbsp;&nbsp;${aml.type}`;
     document.getElementById('panel-body').innerHTML = `
-        <div style="background:var(--yellow-bg);border:1px solid var(--yellow-b);padding:14px;border-radius:8px;color:#fbbf24;"><p style="font-weight:700;font-size:13px;margin-bottom:4px;"><i class="fa-solid fa-shield-halved"></i> Transaksi Terdeteksi</p><p style="color:var(--text-main);"><strong>Nilai:</strong> ${aml.value}</p><p style="font-size:11px;margin-top:4px;color:var(--text-muted);">SLA: ${aml.sla}</p></div>
-        <div class="legal-card"><div class="legal-card-title">Ketentuan Pembawaan UKA Terlanggar</div><div class="legal-card-desc">Sesuai PBI No. 10 Tahun 2024, transaksi mencurigakan atau tunai besar wajib dilaporkan ke PPATK sesuai batas waktu regulasi yang berlaku.</div></div>
+        <div style="background:var(--yellow-bg);border:1px solid var(--yellow-b);padding:14px;border-radius:8px;color:#92400E;"><p style="font-weight:800;font-size:13px;margin-bottom:4px;"><i class="fa-solid fa-shield-halved"></i> Transaksi Terdeteksi</p><p style="color:var(--text-main);"><strong>Nilai:</strong> ${aml.value}</p><p style="font-size:11px;margin-top:4px;color:var(--text-muted);">SLA: ${aml.sla}</p></div>
+        <div class="legal-card"><div class="legal-card-title">Ketentuan Pelaporan APU/PPT</div><div class="legal-card-desc">Sesuai PBI No. 10 Tahun 2024, transaksi mencurigakan atau tunai besar wajib ditindaklanjuti dan dilaporkan ke PPATK sesuai batas waktu regulasi yang berlaku.</div></div>
         ${buildEntityComplianceProfileHtml(aml.entity)}
-        <button class="panel-btn panel-btn-gold" onclick="escalateToPPATK('${aml.entity}')"><i class="fa-solid fa-paper-plane"></i> Eskalasi Laporan ke PPATK</button>`;
+        <button class="panel-btn panel-btn-gold" onclick="escalateToPPATK('${aml.entity}')"><i class="fa-solid fa-paper-plane"></i> Tindak Lanjut APU/PPT</button>`;
 }
 
 /* ================== MERGED COMPLIANCE PROFILE (instruksi #6) ================== */
@@ -1086,12 +1480,12 @@ function buildEntityComplianceProfileHtml(entityName) {
     const sanctions = DB.sanctionsPipeline.filter(s => s.entity === entityName);
     const amls = DB.amlLogs.filter(a => a.entity === entityName);
     if (!sanctions.length && !amls.length) {
-        return `<div class="profile-merge-box"><div class="detail-group-label"><i class="fa-solid fa-layer-group" style="font-size:10px;"></i>Profil Kepatuhan Terpadu</div><p style="font-size:11.5px;color:var(--text-dim);">Tidak ada riwayat sanksi atau temuan AML/CFT tercatat untuk entitas ini.</p></div>`;
+        return `<div class="profile-merge-box"><div class="detail-group-label"><i class="fa-solid fa-layer-group" style="font-size:10px;"></i>Profil Kepatuhan Terpadu</div><p style="font-size:11.5px;color:var(--text-dim);">Tidak ada riwayat sanksi atau temuan APU/PPT tercatat untuk entitas ini.</p></div>`;
     }
     let rows = '';
     sanctions.forEach(s => { rows += `<div class="profile-merge-row"><span class="profile-merge-key"><i class="fa-solid fa-gavel" style="color:#f87171;margin-right:5px;"></i>${s.violation}</span><span class="profile-merge-val" style="color:#fbbf24;">${s.denda}</span></div>`; });
     amls.forEach(a => { rows += `<div class="profile-merge-row"><span class="profile-merge-key"><i class="fa-solid fa-file-shield" style="color:var(--accent-cyan);margin-right:5px;"></i>${a.type}</span><span class="profile-merge-val" style="color:${a.status.includes('Belum')?'#f87171':'#34d399'};">${a.status}</span></div>`; });
-    return `<div class="profile-merge-box"><div class="detail-group-label"><i class="fa-solid fa-layer-group" style="font-size:10px;"></i>Profil Kepatuhan Terpadu — Sanksi & AML/CFT</div>${rows}</div>`;
+    return `<div class="profile-merge-box"><div class="detail-group-label"><i class="fa-solid fa-layer-group" style="font-size:10px;"></i>Profil Kepatuhan Terpadu — Sanksi & APU/PPT</div>${rows}</div>`;
 }
 
 /* ================================================================
@@ -1117,7 +1511,7 @@ function loadScenarioPanel(sc) {
         bodyHtml += `<div><div class="detail-group-label"><i class="fa-solid fa-shield-halved" style="font-size:10px;"></i>Detail Transaksi Mencurigakan (TKM)</div><div class="aml-transaction-box"><div class="aml-tx-title"><i class="fa-solid fa-triangle-exclamation"></i>ANOMALI TRANSAKSI TERDETEKSI — LTKM WAJIB</div><div class="aml-tx-row"><span class="aml-tx-key">Nilai Transaksi UKA</span><span class="aml-tx-val critical">${a.nilaiTransaksi}</span></div><div class="aml-tx-row"><span class="aml-tx-key">Setara Mata Uang</span><span class="aml-tx-val">${a.matauang}</span></div><div class="aml-tx-row"><span class="aml-tx-key">Tanggal & Waktu</span><span class="aml-tx-val">${a.tglTransaksi}</span></div><div class="aml-tx-row"><span class="aml-tx-key">Batas Lapor PPATK</span><span class="aml-tx-val critical">${a.batasLapor}</span></div><div class="aml-tx-row"><span class="aml-tx-key">Aplikasi Pelaporan</span><span class="aml-tx-val">${a.aplikasi}</span></div><div class="aml-tx-row"><span class="aml-tx-key">Pejabat Kepatuhan</span><span class="aml-tx-val">${a.pejabatKepatuhan}</span></div></div></div>
         <div style="background:rgba(239,68,68,.05);border:1px solid var(--red-b);border-radius:var(--radius-md);padding:12px 14px;font-size:11.5px;color:var(--text-muted);"><strong style="color:#f87171;"><i class="fa-solid fa-ban"></i>&nbsp;Larangan Tipping-Off:</strong><br>Dilarang keras memberitahukan nasabah terkait bahwa transaksinya sedang diinvestigasi atau dilaporkan. Berlaku mutlak berdasarkan PBI No. 10 Tahun 2024 & PADG No. 15 Tahun 2025.</div>`;
         bodyHtml += buildEntityComplianceProfileHtml(sc.entity);
-        bodyHtml += `<button class="panel-btn panel-btn-danger" onclick="escalateToPPATK('${sc.entity}')"><i class="fa-solid fa-paper-plane"></i> Eskalasi LTKM ke PPATK via GRIPS</button><button class="panel-btn panel-btn-ghost" onclick="triggerWhatsAppAlert('${sc.entity}')"><i class="fa-brands fa-whatsapp"></i> Kirim Alert Darurat via WhatsApp</button>`;
+        bodyHtml += `<button class="panel-btn panel-btn-danger" onclick="escalateToPPATK('${sc.entity}')"><i class="fa-solid fa-paper-plane"></i> Koordinasi Tindak Lanjut LTKM</button><button class="panel-btn panel-btn-ghost" onclick="triggerWhatsAppAlert('${sc.entity}')"><i class="fa-brands fa-whatsapp"></i> Kirim Alert WhatsApp</button>`;
     } else if (sc.id === 'sulut-003') {
         const b = sc.branchDetails;
         bodyHtml += `<div><div class="detail-group-label"><i class="fa-solid fa-building" style="font-size:10px;"></i>Detail Realisasi Pembukaan Cabang</div><div class="branch-info-grid"><div class="branch-info-cell"><div class="branch-info-key">Tgl Izin BI Diterbitkan</div><div class="branch-info-val" style="color:var(--accent-cyan);">${b.tglIzinBI}</div></div><div class="branch-info-cell"><div class="branch-info-key">Tgl Mulai Operasional</div><div class="branch-info-val" style="color:#34d399;">${b.tglMulaiOps}</div></div><div class="branch-info-cell"><div class="branch-info-key">Laporan Diserahkan</div><div class="branch-info-val" style="color:#34d399;">${b.tglLaporDiserahkan}</div></div><div class="branch-info-cell"><div class="branch-info-key">Kepala Cabang</div><div class="branch-info-val" style="font-size:10.5px;">${b.kepalaCabang}</div></div></div></div>
@@ -1201,18 +1595,19 @@ function triggerWhatsAppAlert(entityName) {
 }
 function escalateToPPATK(entityName) {
     playAlertSound();
-    showToast(`Berkas investigasi <strong>${entityName}</strong> dikirimkan ke Hub PPATK via jalur API GRIPS Secure. Ref: TKM/SULUT/2026/${Math.floor(Math.random()*900+100)}.`, 'danger', 'Eskalasi Resmi ke PPATK', 5000);
+    showToast(`Koordinasi tindak lanjut pelaporan <strong>${entityName}</strong> ke PPATK telah disiapkan. Ref: TKM/SULUT/2026/${Math.floor(Math.random()*900+100)}.`, 'danger', 'Tindak Lanjut APU/PPT', 5000);
 }
 
 function renderAutomationLog() {
     const rows = DB.automationLogs.map(log => {
         const idRef = DB.masterEntities.find(e => e.name === log.entity);
+        const activity = resolveActivityReference(log.entity);
+        const ref = activity ? activity.id : log.entity;
         return `<tr>
             <td><span class="mono-text" style="font-size:10.5px;">${log.waktu}</span></td>
             <td><span class="entity-name" style="font-size:12.5px;">${log.entity}</span><span class="entity-id">${idRef ? idRef.id : '—'}</span></td>
             <td><span class="pill ${log.pillClass}" style="white-space:normal;line-height:1.4;height:auto;padding:5px 10px;">${log.deteksi}</span></td>
-            <td><div class="omni-badge" style="flex-direction:column;align-items:flex-start;gap:5px;"><div style="display:flex;align-items:center;gap:5px;"><div class="portal-dot"></div><span style="font-size:11px;color:var(--text-muted);">📢 ${log.portalStatus}</span></div><div style="display:flex;align-items:center;gap:5px;"><div class="wa-dot"></div><span style="font-size:11px;color:#34d399;font-weight:700;">🟢 ${log.waStatus}</span></div></div></td>
-            <td><button class="btn-wa-resend" onclick="triggerWhatsAppAlert('${log.entity}')"><i class="fa-brands fa-whatsapp"></i> Kirim Ulang Urgent</button></td>
+            <td><button class="btn-wa-resend" onclick="triggerWhatsAppAlert('${ref}')"><i class="fa-brands fa-whatsapp"></i> Kirim Alert WA</button></td>
         </tr>`;
     }).join('');
     document.getElementById('automation-log-rows').innerHTML = rows;
@@ -1338,7 +1733,7 @@ function renderCheatsheetModule() {
     renderToolbar({ showMonthNav:false, showAddBtn:false, showFilterExport:false });
     hideBackButton();
     document.getElementById('kpi-matrix-section').innerHTML = `
-        <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">Total Sumber Hukum Dirujuk</p><p class="metric-value" style="color:var(--accent-cyan);">25</p><p class="metric-sub">PBI, SE, PADG & Lampiran</p></div><div class="metric-icon icon-total"><i class="fa-solid fa-scroll"></i></div></div>
+        <div class="metric-card document-source-card" onclick="openDocumentSourcesModal()" title="Klik untuk melihat daftar 25 sumber hukum"><div class="metric-card-left"><p class="metric-label">Total Sumber Hukum Dirujuk</p><p class="metric-value" style="color:var(--accent-cyan);">25</p><p class="metric-sub">Klik untuk lihat 25 dokumen</p></div><div class="metric-icon icon-total"><i class="fa-solid fa-scroll"></i></div></div>
         <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">Skenario Operasional Terpetakan</p><p class="metric-value" style="color:#60a5fa;">10</p><p class="metric-sub">Skenario A — J</p></div><div class="metric-icon icon-pending"><i class="fa-solid fa-diagram-project"></i></div></div>
         <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">Rumpun Kategori Pelaporan</p><p class="metric-value" style="color:#fbbf24;">3</p><p class="metric-sub">Berkala · Insidental · Transaksi</p></div><div class="metric-icon icon-upcoming"><i class="fa-solid fa-layer-group"></i></div></div>
         <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">Kasus Sanksi Tercatat Sistem</p><p class="metric-value text-critical">${DB.sanctionsPipeline.length}</p><p class="metric-sub">Pipeline Aktif</p></div><div class="metric-icon icon-warnings"><i class="fa-solid fa-gavel"></i></div></div>`;
@@ -1511,14 +1906,1187 @@ function toggleKpiFilterRefresh() {
     else if (currentKpiFilter === 'warnings') renderWarningsQueue();
 }
 
+
+
+/* ================================================================
+   SIDEBAR COLLAPSE
+================================================================ */
+function initializeSidebarState() {
+    const saved = localStorage.getItem('biSssSidebarCollapsed');
+    if (saved === 'true' && window.innerWidth > 900) document.body.classList.add('sidebar-collapsed');
+}
+function toggleSidebar(forceOpen) {
+    playClickSound();
+    const isMobile = window.innerWidth <= 900;
+    if (isMobile) {
+        const shouldOpen = (typeof forceOpen === 'boolean') ? forceOpen : !document.body.classList.contains('sidebar-mobile-open');
+        document.body.classList.toggle('sidebar-mobile-open', shouldOpen);
+        return;
+    }
+    const collapse = (typeof forceOpen === 'boolean') ? !forceOpen : !document.body.classList.contains('sidebar-collapsed');
+    document.body.classList.toggle('sidebar-collapsed', collapse);
+    localStorage.setItem('biSssSidebarCollapsed', collapse ? 'true' : 'false');
+}
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 900) document.body.classList.remove('sidebar-mobile-open');
+    positionNotifPopover();
+});
+
+/* ================================================================
+   NOTIFICATION POPOVER
+================================================================ */
+function positionNotifPopover() {
+    const pop = document.getElementById('notif-popover');
+    const bell = document.getElementById('btn-notif-bell');
+    if (!pop || !bell || pop.classList.contains('d-none')) return;
+    const rect = bell.getBoundingClientRect();
+    const margin = 16;
+    const width = Math.min(360, window.innerWidth - (margin * 2));
+    let right = Math.max(margin, window.innerWidth - rect.right);
+    if (right + width > window.innerWidth - margin) right = margin;
+    pop.style.width = width + 'px';
+    pop.style.top = Math.min(rect.bottom + 12, window.innerHeight - 100) + 'px';
+    pop.style.right = right + 'px';
+}
+function toggleNotifPopover(e) {
+    if (e) e.stopPropagation();
+    playClickSound();
+    const pop = document.getElementById('notif-popover');
+    const backdrop = document.getElementById('notif-backdrop');
+    const willOpen = pop.classList.contains('d-none');
+    if (willOpen) {
+        const items = buildNotifList();
+        pop.innerHTML = `<div class="notif-popover-header"><span>Peringatan Kritis & SLA Breach</span><span class="pill pill-danger" style="padding:2px 8px;">${items.length}</span></div><div class="notif-list">${items.length ? items.map(it=>`<div class="notif-item" onclick="${it.onclick}"><div class="notif-item-title">${it.title}</div><div class="notif-item-sub">${it.sub}</div></div>`).join('') : '<div class="notif-empty">Tidak ada notifikasi kritis aktif.</div>'}</div>`;
+        pop.classList.remove('d-none');
+        if (backdrop) backdrop.classList.remove('d-none');
+        positionNotifPopover();
+    } else closeNotifPopover();
+}
+function closeNotifPopover() {
+    const pop = document.getElementById('notif-popover');
+    const backdrop = document.getElementById('notif-backdrop');
+    if (pop) pop.classList.add('d-none');
+    if (backdrop) backdrop.classList.add('d-none');
+}
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeNotifPopover(); closeDocumentSourcesModal(); } });
+
+/* ================================================================
+   WHATSAPP ALERT
+================================================================ */
+const EMERGENCY_WA_NUMBER = "62811350031";
+const EMERGENCY_WA_TEXT = "Selamat pagi, mohon segera menindaklanjuti kewajiban kepatuhan KUPVA BB sesuai ketentuan yang berlaku. Terima kasih.";
+function buildWhatsAppUrl(activityOrRef) {
+    const msg = generateWhatsAppMessage(activityOrRef);
+    return `https://wa.me/${EMERGENCY_WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+}
+function triggerWhatsAppAlert(activityOrEntity) {
+    playClickSound();
+    const activity = resolveActivityReference(activityOrEntity);
+    window.open(buildWhatsAppUrl(activity || activityOrEntity), '_blank', 'noopener,noreferrer');
+    const label = activity ? activity.entity : (activityOrEntity || '');
+    const entityNote = label ? ` untuk <strong>${label}</strong>` : '';
+    showToast(`Draft alert WhatsApp berhasil dibuka${entityNote}.<br><span style="font-size:11px;color:#64748B;">Pengiriman final tetap perlu klik Send di WhatsApp.</span>`, 'wa', 'WhatsApp Alert', 4800);
+}
+function sendWhatsAppAlertProduction() {
+    // Placeholder production: auto-send sungguhan membutuhkan backend, WhatsApp Business API token,
+    // approval template message, dan audit trail pengiriman resmi.
+    console.info('Production WhatsApp send requires backend + WhatsApp Business API token.');
+}
+
+/* ================================================================
+   EXPORT EXCEL
+================================================================ */
+function getMasterByEntityName(entityName) {
+    return DB.masterEntities.find(e => e.name === entityName) || {};
+}
+function getEventStatusCategory(ev) {
+    const raw = `${ev.type || ''} ${ev.badgeClass || ''} ${ev.status || ''} ${ev.countdownType || ''}`.toLowerCase();
+    if (raw.includes('critical') || raw.includes('overdue') || raw.includes('kritis') || raw.includes('darurat')) return 'KRITIKAL';
+    if (raw.includes('warning') || raw.includes('upcoming') || raw.includes('menunggu') || raw.includes('batas')) return 'BATAS WAKTU / DUE SOON';
+    if (raw.includes('success') || raw.includes('submitted') || raw.includes('completed') || raw.includes('selesai')) return 'SELESAI / COMPLIANT';
+    if (raw.includes('closed') || raw.includes('nonaktif')) return 'CLOSED / NONAKTIF';
+    return 'INFORMASI';
+}
+function getRiskLevel(ev) {
+    const cat = getEventStatusCategory(ev);
+    if (cat === 'KRITIKAL') return 'Tinggi / Critical';
+    if (cat.includes('BATAS')) return 'Sedang / Attention';
+    if (cat.includes('SELESAI')) return 'Rendah / Compliant';
+    if (cat.includes('CLOSED')) return 'Closed';
+    return 'Informational';
+}
+function formatDateID(day, month, year) {
+    return `${String(day).padStart(2,'0')} ${MONTH_NAMES_ID[month]} ${year}`;
+}
+function collectCalendarExportRows() {
+    const events = [...DB.scenarios, ...DB.additionalEvents].filter(ev => ev.month === viewMonth && ev.year === viewYear);
+    return events.map(ev => {
+        const master = getMasterByEntityName(ev.entity);
+        return {
+            'Tanggal': formatDateID(ev.day, ev.month, ev.year),
+            'Bulan': MONTH_NAMES_ID[ev.month],
+            'Tahun': ev.year,
+            'Nama Entitas KUPVA BB': ev.entity || '',
+            'ID Entitas / ID Izin': ev.entityId || master.id || '',
+            'Lokasi': ev.location || master.location || '',
+            'Jenis Kegiatan / Kewajiban': ev.title || ev.shortTitle || '',
+            'Status': ev.status || '',
+            'Kategori Status': getEventStatusCategory(ev),
+            'Level Risiko': getRiskLevel(ev),
+            'SLA / Countdown': ev.countdown || ev.countdownLabel || '',
+            'Dasar Hukum': ev.law || '',
+            'Detail Regulasi': ev.lawDetail || '',
+            'Deskripsi / Catatan': ev.description || ev.desc || '',
+            'Persentase SLA': (ev.sla !== undefined && ev.sla !== null) ? `${ev.sla}%` : ''
+        };
+    });
+}
+function exportTrackerExcel() {
+    playClickSound();
+    const rows = collectCalendarExportRows();
+    if (!rows.length) {
+        showToast('Tidak ada event kalender pada bulan yang sedang ditampilkan untuk diekspor.','info','Ekspor Kalender',3500);
+        return;
+    }
+    const headers = ['Tanggal','Bulan','Tahun','Nama Entitas KUPVA BB','ID Entitas / ID Izin','Lokasi','Jenis Kegiatan / Kewajiban','Status','Kategori Status','Level Risiko','SLA / Countdown','Dasar Hukum','Detail Regulasi','Deskripsi / Catatan','Persentase SLA'];
+    const aoa = [headers, ...rows.map(r => headers.map(h => r[h] || ''))];
+    const fileName = `KUPVA_BB_Tracker_Status_${MONTH_NAMES_ID[viewMonth]}_${viewYear}.xlsx`;
+    try {
+        if (window.XLSX) {
+            const ws = XLSX.utils.aoa_to_sheet(aoa);
+            ws['!cols'] = headers.map(h => ({ wch: Math.min(Math.max(h.length + 4, 14), h === 'Deskripsi / Catatan' ? 55 : 34) }));
+            ws['!autofilter'] = { ref: XLSX.utils.encode_range({s:{r:0,c:0}, e:{r:aoa.length-1,c:headers.length-1}}) };
+            ws['!freeze'] = { xSplit:0, ySplit:1 };
+            headers.forEach((_, idx) => {
+                const cell = ws[XLSX.utils.encode_cell({r:0,c:idx})];
+                if (cell) cell.s = { font: { bold: true }, alignment: { vertical:'center' } };
+            });
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Status KUPVA BB');
+            XLSX.writeFile(wb, fileName);
+            showToast('File Excel status KUPVA BB berhasil diunduh.','success','Ekspor Berhasil',4200);
+            return;
+        }
+    } catch (err) {
+        console.warn('XLSX export failed, fallback to CSV:', err);
+    }
+    exportTrackerCsvFallback(headers, aoa, fileName.replace('.xlsx', '.csv'));
+}
+function exportTrackerCsvFallback(headers, aoa, fileName) {
+    const csv = aoa.map(row => row.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+    downloadBlob('\ufeff' + csv, fileName, 'text/csv;charset=utf-8;');
+    showToast('CDN SheetJS tidak tersedia. File CSV fallback berhasil diunduh.','info','Ekspor CSV Fallback',5000);
+}
+function downloadBlob(content, filename, mimeType) {
+    const blob = new Blob([content], { type: mimeType || 'text/plain;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+/* ================================================================
+   CHEATSHEET DOCUMENT MODAL
+================================================================ */
+const documentSources = [
+    {
+        "id": 1,
+        "title": "Peraturan Bank Indonesia Nomor 18/20/PBI/2016",
+        "category": "Kelembagaan & Operasional",
+        "description": "Kegiatan Usaha Penukaran Valuta Asing Bukan Bank (KUPVA BB).",
+        "filename": "PBI_18_20_PBI_2016.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 2,
+        "title": "Surat Edaran Bank Indonesia Nomor 18/42/DKSP",
+        "category": "Kelembagaan & Operasional",
+        "description": "Kegiatan Usaha Penukaran Valuta Asing Bukan Bank.",
+        "filename": "SEBI_18_42_DKSP.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 3,
+        "title": "Surat Edaran Bank Indonesia Nomor 18/42/DKSP (Teks Salinan)",
+        "category": "Kelembagaan & Operasional",
+        "description": "Kegiatan Usaha Penukaran Valuta Asing Bukan Bank (Berkas Dokumen Pendukung).",
+        "filename": "SEBI_18_42_DKSP_Teks_Salinan.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 4,
+        "title": "Peraturan Bank Indonesia Nomor 10 Tahun 2024",
+        "category": "APU PPT PPPSPM",
+        "description": "Penerapan Anti Pencucian Uang, Pencegahan Pendanaan Terorisme, dan Pencegahan Pendanaan Proliferasi Senjata Pemusnah Massal bagi Pihak yang Diatur dan Diawasi oleh Bank Indonesia.",
+        "filename": "PBI_10_2024.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 5,
+        "title": "Peraturan Bank Indonesia Nomor 10 Tahun 2024 (Salinan Utama)",
+        "category": "APU PPT PPPSPM",
+        "description": "Penerapan Anti Pencucian Uang, Pencegahan Pendanaan Terorisme, dan Pencegahan Pendanaan Proliferasi Senjata Pemusnah Massal.",
+        "filename": "PBI_10_2024_Salinan_Utama.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 6,
+        "title": "Peraturan Anggota Dewan Gubernur Nomor 15 Tahun 2025",
+        "category": "APU PPT PPPSPM",
+        "description": "Pelaksanaan Penerapan Anti Pencucian Uang, Pencegahan Pendanaan Terorisme, dan Pencegahan Pendanaan Proliferasi Senjata Pemusnah Massal.",
+        "filename": "PADG_15_2025.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 7,
+        "title": "Buku Petunjuk Teknis Pedoman Penerapan APU-PPT-PPPSPM",
+        "category": "APU PPT PPPSPM",
+        "description": "Panduan Operasional Penerapan Program APU PPT bagi Penyelenggara KUPVA BB dan Layanan Uang.",
+        "filename": "Buku_Petunjuk_Teknis_Pedoman_Penerapan_APU_PPT_PPPSPM.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 8,
+        "title": "FAQ Peraturan Anggota Dewan Gubernur Nomor 15 Tahun 2025",
+        "category": "APU PPT PPPSPM",
+        "description": "Frequently Asked Questions (FAQ) Ketentuan Penerapan APU, PPT, dan PPPSPM.",
+        "filename": "FAQ_PADG_15_2025.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 9,
+        "title": "Peraturan Bank Indonesia Nomor 3 Tahun 2023",
+        "category": "Pelindungan Konsumen",
+        "description": "Pelindungan Konsumen Bank Indonesia.",
+        "filename": "PBI_3_2023.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 10,
+        "title": "Ringkasan Peraturan Bank Indonesia Nomor 3 Tahun 2023",
+        "category": "Pelindungan Konsumen",
+        "description": "Ringkasan Eksekutif Ketentuan Pelindungan Konsumen Bank Indonesia.",
+        "filename": "Ringkasan_PBI_3_2023.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 11,
+        "title": "FAQ Peraturan Bank Indonesia Nomor 3 Tahun 2023",
+        "category": "Pelindungan Konsumen",
+        "description": "Frequently Asked Questions (FAQ) Pelindungan Konsumen Bank Indonesia.",
+        "filename": "FAQ_PBI_3_2023.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 12,
+        "title": "Peraturan Bank Indonesia Nomor 22/20/PBI/2020",
+        "category": "Pelindungan Konsumen",
+        "description": "Perlindungan Konsumen Bank Indonesia (Regulasi Transisi/Lama).",
+        "filename": "PBI_22_20_PBI_2020.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 13,
+        "title": "Materi Sosialisasi PBI Perlindungan Konsumen (Ka DUPK)",
+        "category": "Materi Sosialisasi",
+        "description": "Transformasi Kebijakan Pelindungan Konsumen Guna Mendukung Stabilitas Sistem Keuangan.",
+        "filename": "Materi_Sosialisasi_PBI_Perlindungan_Konsumen_Ka_DUPK.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 14,
+        "title": "Materi Sosialisasi PBI Perlindungan Konsumen (Ka GrPK)",
+        "category": "Materi Sosialisasi",
+        "description": "Penguatan Implementasi Pelindungan Konsumen dan Pengawasan Market Conduct.",
+        "filename": "Materi_Sosialisasi_PBI_Perlindungan_Konsumen_Ka_GrPK.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 15,
+        "title": "Lampiran Surat Edaran Bank Indonesia Nomor 18/42/DKSP",
+        "category": "Dokumen Administrasi",
+        "description": "Kumpulan Format Formulir dan Pedoman Studi Kelayakan KUPVA BB.",
+        "filename": "Lampiran_SEBI_18_42_DKSP.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 16,
+        "title": "Lampiran Juknis Pedoman Penerapan APU-PPT-PPPSPM",
+        "category": "Dokumen Administrasi",
+        "description": "Kumpulan Formulir Profil Risiko dan Penatausahaan Dokumen Kepatuhan.",
+        "filename": "Lampiran_Juknis_Pedoman_Penerapan_APU_PPT_PPPSPM.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 17,
+        "title": "Lampiran PADG Nomor 15 Tahun 2025 (Tabel Sanksi)",
+        "category": "Dokumen Administrasi",
+        "description": "Tabel Contoh Perhitungan Sanksi Administratif Berupa Denda Finansial APU PPT PPPSPM.",
+        "filename": "Lampiran_PADG_15_2025_Tabel_Sanksi.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 18,
+        "title": "Peraturan Bank Indonesia Nomor 21/16/PBI/2019",
+        "category": "Kelembagaan & Operasional",
+        "description": "Standardisasi Kompetensi di Bidang Sistem Pembayaran dan Pengelolaan Uang Rupiah (SPPUR).",
+        "filename": "PBI_21_16_PBI_2019.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 19,
+        "title": "PADG Intern Nomor 23/37/PADG/2021",
+        "category": "Internal Pengawasan BI",
+        "description": "Pedoman Perizinan dan Pengawasan Kegiatan Usaha Penukaran Valuta Asing Bukan Bank.",
+        "filename": "PADG_Intern_23_37_PADG_2021.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 20,
+        "title": "Peraturan Anggota Dewan Gubernur Intern Nomor 70 Tahun 2025",
+        "category": "Internal Pengawasan BI",
+        "description": "Tata Cara Pelaksanaan Pengawasan Tidak Langsung (Off-Site Supervision) Penerapan APU, PPT, dan PPPSPM.",
+        "filename": "PADG_Intern_70_2025.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 21,
+        "title": "Peraturan Anggota Dewan Gubernur Intern Nomor 71 Tahun 2025",
+        "category": "Internal Pengawasan BI",
+        "description": "Pedoman Pemeriksaan Langsung (On-Site Examination) dan Tata Cara Forum Panel Pengawasan APU, PPT, dan PPPSPM.",
+        "filename": "PADG_Intern_71_2025.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 22,
+        "title": "Lembar Instruksi Analisis Regulasi Utama (Dokumen Kerja User 1)",
+        "category": "Dokumen Instruksi & Log",
+        "description": "Permintaan Analisis Tugas dan Kewajiban Mutlak BI terhadap KUPVA BB dan Sebaliknya.",
+        "filename": "Lembar_Instruksi_Analisis_Regulasi_Utama_Dokumen_Kerja_User_1.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 23,
+        "title": "Lembar Instruksi Skenario Operasional (Dokumen Kerja User 2)",
+        "category": "Dokumen Instruksi & Log",
+        "description": "Instruksi Penyusunan Skenario Kasus Kepatuhan KUPVA BB.",
+        "filename": "Lembar_Instruksi_Skenario_Operasional_Dokumen_Kerja_User_2.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 24,
+        "title": "Lembar Instruksi Sinkronisasi Dokumen V2/V3 (Dokumen Kerja User 3)",
+        "category": "Dokumen Instruksi & Log",
+        "description": "Perintah Penyempurnaan dan Kelengkapan Matriks Tanpa Reduksi Substansi.",
+        "filename": "Lembar_Instruksi_Sinkronisasi_Dokumen_V2_V3_Dokumen_Kerja_User_3.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    },
+    {
+        "id": 25,
+        "title": "Rangkuman Regulasi BI dalam Google Docs (Output Log)",
+        "category": "Dokumen Instruksi & Log",
+        "description": "Log Riwayat Kerja Pembuatan Draft Ringkasan Regulasi Terintegrasi.",
+        "filename": "Rangkuman_Regulasi_BI_dalam_Google_Docs_Output_Log.txt",
+        "sourceUrl": "",
+        "filePath": ""
+    }
+];
+function escapeHtml(str) {
+    return String(str || '').replace(/[&<>"']/g, ch => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[ch]));
+}
+function openDocumentSourcesModal() {
+    playClickSound();
+    closeDocumentSourcesModal();
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.id = 'document-sources-modal';
+    modal.innerHTML = `<div class="modal-box doc-modal-box" role="dialog" aria-modal="true" aria-labelledby="doc-modal-title">
+        <div class="modal-header">
+            <h3 id="doc-modal-title"><i class="fa-solid fa-scroll"></i>Daftar 25 Sumber Hukum & Dokumen Kepatuhan</h3>
+            <button class="modal-close-btn" onclick="closeDocumentSourcesModal()" aria-label="Tutup modal"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="doc-modal-tools">
+                <div class="doc-search-wrap"><i class="fa-solid fa-magnifying-glass"></i><input class="doc-search-input" id="document-source-search" oninput="renderDocumentSourcesList(this.value)" placeholder="Cari nama dokumen, kategori, atau keterangan..."></div>
+            </div>
+            <div class="doc-list" id="document-source-list"></div>
+            <p style="font-size:11px;color:var(--text-muted);margin-top:12px;line-height:1.5;">Catatan: tombol Download saat ini menghasilkan placeholder .txt. Pada versi produksi, hubungkan field sourceUrl/filePath ke file dokumen asli.</p>
+        </div>
+    </div>`;
+    modal.addEventListener('click', (e) => { if (e.target.id === 'document-sources-modal') closeDocumentSourcesModal(); });
+    document.body.appendChild(modal);
+    renderDocumentSourcesList('');
+    setTimeout(() => document.getElementById('document-source-search')?.focus(), 50);
+}
+function closeDocumentSourcesModal() {
+    const modal = document.getElementById('document-sources-modal');
+    if (modal) modal.remove();
+}
+function renderDocumentSourcesList(query) {
+    const q = (query || '').trim().toLowerCase();
+    const list = document.getElementById('document-source-list');
+    if (!list) return;
+    const filtered = documentSources.filter(d => `${d.title} ${d.category} ${d.description}`.toLowerCase().includes(q));
+    if (!filtered.length) {
+        list.innerHTML = '<div class="doc-empty"><i class="fa-solid fa-magnifying-glass" style="font-size:18px;margin-bottom:8px;display:block;"></i>Tidak ada dokumen yang cocok dengan kata kunci tersebut.</div>';
+        return;
+    }
+    list.innerHTML = filtered.map(d => `<div class="doc-row">
+        <div class="doc-number">${d.id}</div>
+        <div>
+            <div class="doc-title">${escapeHtml(d.title)}</div>
+            <span class="doc-category-badge"><i class="fa-solid fa-tag"></i>${escapeHtml(d.category)}</span>
+            <div class="doc-desc">${escapeHtml(d.description)}</div>
+        </div>
+        <button class="doc-download-btn" onclick="downloadDocumentSource(${d.id})"><i class="fa-solid fa-download"></i>Download</button>
+    </div>`).join('');
+}
+function downloadDocumentSource(id) {
+    const doc = documentSources.find(d => d.id === id);
+    if (!doc) return;
+    if (doc.sourceUrl || doc.filePath) {
+        window.open(doc.sourceUrl || doc.filePath, '_blank', 'noopener,noreferrer');
+        return;
+    }
+    const content = `Judul Dokumen
+${doc.title}
+
+Kategori
+${doc.category}
+
+Keterangan
+Dokumen sumber perlu dilampirkan/ditautkan pada versi produksi.
+`;
+    downloadBlob(content, doc.filename, 'text/plain;charset=utf-8;');
+    showToast(`Placeholder dokumen <strong>${escapeHtml(doc.title)}</strong> berhasil diunduh.`, 'success', 'Download Dokumen', 3500);
+}
+
+/* ================================================================
+   V7 LOGIC CONSISTENCY PATCH
+   SINGLE SOURCE OF TRUTH · ACTIVE SCENARIOS · CHECKLIST MILESTONES
+   SEARCH CONNECTED TO MASTER ENTITIES · EXPORT EXCEL NORMALIZED
+================================================================ */
+const CHECKLIST_STORAGE_KEY_V7 = 'biSssChecklistStateV7';
+let currentRightPanelMode = 'active-list';
+let selectedScenarioIdFromActiveList = null;
+
+function slugifySafe(str) {
+    return String(str || '').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'') || 'activity';
+}
+function getMonthDate(activity) { return new Date(activity.year, activity.month, activity.day); }
+function getDayDiffFromToday(activity) {
+    return Math.round((getMonthDate(activity).setHours(0,0,0,0) - new Date(TODAY_YEAR, TODAY_MONTH_IDX, TODAY_DAY).setHours(0,0,0,0)) / 86400000);
+}
+function normalizeSearchText(...parts) { return ds(...parts).normalize('NFKD').replace(/[\u0300-\u036f]/g,''); }
+function masterForActivity(activity) {
+    return DB.masterEntities.find(e => e.id === activity.entityId) || DB.masterEntities.find(e => (activity.entity || '').toLowerCase() === e.name.toLowerCase()) || {};
+}
+function getActivityStatusGroup(activity) {
+    const raw = `${activity.statusGroup || ''} ${activity.status || ''} ${activity.type || ''} ${activity.countdownType || ''}`.toLowerCase();
+    if (/cancel|batal/.test(raw)) return 'CANCELLED';
+    if (/closed|ditutup|nonaktif|lunas/.test(raw)) return 'CLOSED';
+    if (/completed|selesai|compliant|sudah dipenuhi/.test(raw)) return 'COMPLETED';
+    if (/overdue|kritikal|critical|kritis|darurat/.test(raw)) return 'CRITICAL';
+    if (/due soon|batas waktu|mendekat|menunggu dokumen|warning|upcoming/.test(raw)) return 'DUE_SOON';
+    if (/submitted|menunggu verifikasi|pending bi|berkas diterima/.test(raw)) return 'SUBMITTED';
+    if (/progress|persiapan|incoming|milestone|baru/.test(raw)) return 'IN_PROGRESS';
+    return 'INFO';
+}
+function getActivitySeverity(activity) {
+    const group = getActivityStatusGroup(activity);
+    if (activity.severity) return activity.severity;
+    if (group === 'CRITICAL') return 'critical';
+    if (group === 'DUE_SOON') return 'warning';
+    if (group === 'COMPLETED') return 'success';
+    if (group === 'CLOSED' || group === 'CANCELLED') return 'closed';
+    return 'info';
+}
+function getStatusMetaBySeverity(sev) {
+    const map = {
+        critical:{ badgeClass:'badge-critical', icon:'fa-triangle-exclamation', pill:'pill-danger', label:'Kritikal' },
+        warning:{ badgeClass:'badge-warning', icon:'fa-hourglass-half', pill:'pill-warning', label:'Batas Waktu' },
+        success:{ badgeClass:'badge-success', icon:'fa-circle-check', pill:'pill-success', label:'Selesai' },
+        info:{ badgeClass:'badge-info', icon:'fa-circle-info', pill:'pill-info', label:'Info' },
+        closed:{ badgeClass:'badge-closed', icon:'fa-circle-minus', pill:'pill-neutral', label:'Closed' }
+    };
+    return map[sev] || map.info;
+}
+function isFinalStatusGroup(group) { return ['COMPLETED','CLOSED','CANCELLED'].includes(group); }
+function normalizeActivity(activity, moduleSource) {
+    const master = masterForActivity(activity);
+    const group = getActivityStatusGroup(activity);
+    const severity = getActivitySeverity(activity);
+    const meta = getStatusMetaBySeverity(severity);
+    const isCompleted = isFinalStatusGroup(group);
+    const isInformationalOnly = activity.isInformationalOnly === true || group === 'INFO';
+    const isActive = !isCompleted && !isInformationalOnly;
+    const isCritical = isActive && severity === 'critical';
+    const isWarning = isActive && severity === 'warning';
+    const diffDays = getDayDiffFromToday(activity);
+    const entity = master.name || activity.entity || '';
+    const entityId = activity.entityId || master.id || '';
+    const obligationType = activity.obligationType || activity.shortTitle || activity.title || 'Kewajiban KUPVA BB';
+    const id = activity.id || `extra-${activity.day}-${activity.month}-${activity.year}-${slugifySafe(activity.entity || activity.title)}`;
+    return {
+        ...activity,
+        id,
+        entityId,
+        entity,
+        entityShort: activity.entityShort || entity.replace(/^PT\s+/i,'').split(/\s+/).slice(0,2).join(' '),
+        location: activity.location || master.location || 'Sulawesi Utara',
+        date: `${activity.year}-${String(activity.month+1).padStart(2,'0')}-${String(activity.day).padStart(2,'0')}`,
+        day: activity.day,
+        month: activity.month,
+        year: activity.year,
+        obligationType,
+        status: activity.status || meta.label,
+        statusGroup: group,
+        severity,
+        riskLevel: activity.riskLevel || (master.risiko || (isCritical ? 'Tinggi' : isWarning ? 'Sedang' : 'Rendah')),
+        law: activity.law || '',
+        sla: activity.sla ?? '',
+        isActive,
+        isCompleted,
+        isCritical,
+        isWarning,
+        isDueThisWeek: isWarning && diffDays >= 0 && diffDays <= 7,
+        daysDiff: diffDays,
+        moduleSource: moduleSource || activity.moduleSource || 'calendar',
+        badgeClass: activity.badgeClass || meta.badgeClass,
+        badgeIcon: activity.badgeIcon || meta.icon,
+        pillClass: meta.pill,
+        searchText: normalizeSearchText(entity, entityId, activity.location || master.location, master.namaDir, master.status, master.risiko, obligationType, activity.title, activity.status, activity.law)
+    };
+}
+function getAllCalendarActivities() {
+    const scenarioActivities = DB.scenarios.map(s => normalizeActivity(s, 'scenarios'));
+    const additionalActivities = DB.additionalEvents.map(e => normalizeActivity(e, 'additionalEvents'));
+    return [...scenarioActivities, ...additionalActivities].sort((a,b) => new Date(a.year,a.month,a.day) - new Date(b.year,b.month,b.day));
+}
+function getCurrentMonthActivities() { return getAllCalendarActivities().filter(a => a.month === viewMonth && a.year === viewYear); }
+function getActiveActivities() { return getCurrentMonthActivities().filter(a => a.isActive); }
+function getCompletedActivities() { return getCurrentMonthActivities().filter(a => a.isCompleted); }
+function getCriticalUnresolvedActivities() { return getCurrentMonthActivities().filter(a => a.isCritical); }
+function getWarningActivities() { return getCurrentMonthActivities().filter(a => a.isWarning); }
+function getDueThisWeekActivities() { return getCurrentMonthActivities().filter(a => a.isDueThisWeek); }
+function calculateDashboardStats() {
+    const current = getCurrentMonthActivities();
+    return {
+        pending: current.filter(a => a.isActive && !a.isCritical && !a.isWarning).length,
+        upcoming: getDueThisWeekActivities().length,
+        warnings: getCriticalUnresolvedActivities().length,
+        completed: getCompletedActivities().length,
+        active: getActiveActivities().length,
+        total: DB.masterEntities.length,
+        currentTotal: current.length
+    };
+}
+function getScenarioByActivityId(activityId) { return DB.scenarios.find(s => s.id === activityId); }
+function getActivityById(activityId) { return getAllCalendarActivities().find(a => a.id === activityId); }
+function getScenarioByIdSafe(scenarioId) { return DB.scenarios.find(s => s.id === scenarioId); }
+
+function hydrateDummyDataForV7() {
+    const set = (id, props) => Object.assign(DB.scenarios.find(s => s.id === id) || {}, props);
+    set('sulut-001', {
+        obligationType:'Perpanjangan Izin', status:'Batas Waktu Mendekat', statusGroup:'DUE_SOON', severity:'warning', type:'due-soon', kpiFilter:'upcoming', badgeClass:'badge-warning', badgeIcon:'fa-hourglass-half', countdownType:'warning',
+        checklist:[
+            {done:true,item:'Surat Permohonan Perpanjangan Resmi'},
+            {done:true,item:'Akta PT & Anggaran Dasar Terakhir'},
+            {done:false,item:'Bukti Kepatuhan Pelaporan LKU 2 Periode Terakhir'},
+            {done:false,item:'Sertifikasi Kompetensi SPPUR Pengurus Aktif'},
+            {done:false,item:'Dokumen Kebijakan Internal APU PPT terkini'}
+        ]
+    });
+    set('sulut-002', { obligationType:'Deteksi APU/PPT', status:'Kritikal', statusGroup:'CRITICAL', severity:'critical', type:'critical', kpiFilter:'warnings', badgeClass:'badge-critical', badgeIcon:'fa-triangle-exclamation', countdownType:'critical', sanctionStatus:'active' });
+    set('sulut-004', { obligationType:'Izin Usaha Baru', status:'Persiapan Dokumen', statusGroup:'IN_PROGRESS', severity:'info', type:'incoming', kpiFilter:'pending', badgeClass:'badge-info', badgeIcon:'fa-file-circle-plus', countdownType:'info' });
+
+    DB.additionalEvents = [
+        { day:3, month:5, year:2026, type:'closed', statusGroup:'CLOSED', severity:'closed', badgeClass:'badge-closed', badgeIcon:'fa-circle-minus', entityShort:'Arthaindo', shortTitle:'SP1 Tercatat', title:'SP1 LKU Mei — Tindak Lanjut Ditutup', status:'Closed', entity:'Arthaindo Valas Manado', law:'PADG No. 23/37/PADG/2021', desc:'Riwayat SP1 akibat keterlambatan LKU Bulanan Mei 2026 telah tercatat sebagai histori dan tidak dihitung sebagai peringatan aktif bulan berjalan.' },
+        { day:10, month:5, year:2026, type:'success', statusGroup:'COMPLETED', severity:'success', badgeClass:'badge-success', badgeIcon:'fa-check', entityShort:'Borneo Valas', shortTitle:'FDL On-Site Selesai', title:'Entry Meeting On-Site Inspection Selesai', status:'Selesai', entity:'PT Borneo Valas Sulut', law:'PBI No. 18/20/PBI/2016', desc:'Pemeriksaan lapangan oleh tim pengawas BI KPwDN Sulut telah diselesaikan. FDL diterima 1 hari kerja sebelum entry meeting sesuai ketentuan.' },
+        { day:20, month:5, year:2026, type:'success', statusGroup:'COMPLETED', severity:'success', badgeClass:'badge-success', badgeIcon:'fa-check', entityShort:'Pacific FX', shortTitle:'LTKT Dilaporkan', title:'Pelaporan LTKT Transaksi Tunai > Threshold', status:'Selesai', entity:'Pacific Exchange Sulut', law:'PBI No. 10 Tahun 2024 Ps. 62', desc:'LTKT berhasil dikirimkan ke PPATK ke PPATK dalam batas 14 hari kerja sejak transaksi tunai senilai Rp 780.000.000 dilakukan pada 2 Juni 2026.' },
+        { day:30, month:5, year:2026, type:'info', statusGroup:'INFO', severity:'info', isInformationalOnly:true, badgeClass:'badge-info', badgeIcon:'fa-file-lines', entityShort:'Multi Entitas', shortTitle:'LKU Juni Info', title:'Informasi Persiapan LKU Bulanan Juni 2026', status:'Info', entity:'Semua KUPVA BB Sulut', law:'SE No. 18/42/DKSP Hal. 34', desc:'Pengingat informasi: LKU Bulanan Juni 2026 paling lambat tanggal 15 Juli 2026 untuk seluruh KUPVA BB terdaftar di wilayah pengawasan KPwBI Sulawesi Utara.' }
+    ];
+
+    DB.sanctionsPipeline = [
+        { entity:'PT Sentralindo Valutama', violation:'Pembawaan UKA > Rp 1 Miliar tanpa underlying — TKM wajib LTKM', denda:'Rp 25.000.000', status:'Investigasi APU/PPT Aktif', deadline:'Kritis — maks. 3 hari kerja', tingkat:'danger', sourceActivityId:'sulut-002', active:true },
+        { entity:'Arthaindo Valas Manado', violation:'Keterlambatan LKU Mei 2026 — SP1 telah ditindaklanjuti', denda:'Rp 3.500.000', status:'Closed — histori sanksi', deadline:'Selesai', tingkat:'success', active:false },
+        { entity:'Pacific Exchange Sulut', violation:'Pelaporan LTKT threshold — kasus ditutup', denda:'Rp 1.250.000', status:'Closed — kasus ditutup', deadline:'Selesai', tingkat:'success', active:false }
+    ];
+    DB.amlLogs = [
+        { entity:'PT Sentralindo Valutama', type:'LTKM — Transaksi Keuangan Mencurigakan', value:'Rp 1.250.000.000 (UKA)', date:'22 Juni 2026', status:'Belum Melapor ke PPATK', sla:'Maksimal 3 hari kerja setelah ditetapkan sebagai TKM (26 Juni 2026)', risk:'KRITIKAL', sourceActivityId:'sulut-002' },
+        { entity:'Pacific Exchange Sulut', type:'LTKT — Transaksi Tunai Besar', value:'Rp 780.000.000', date:'20 Juni 2026', status:'Selesai Dilaporkan ke PPATK', sla:'Maksimal 14 hari kerja sejak tanggal transaksi tunai', risk:'Rendah' },
+        { entity:'Semua KUPVA BB Sulut', type:'LKU Bulanan', value:'Periode Juni 2026', date:'15 Juli 2026', status:'Info Jadwal', sla:'Paling lambat tanggal 15 bulan berikutnya', risk:'Rendah' }
+    ];
+    DB.scenarios = DB.scenarios.filter(s => !/\x48aji|La\x20Tunrung/i.test(s.entity || ''));
+    DB.masterEntities = DB.masterEntities.filter(e => !/\x48aji|La\x20Tunrung/i.test(e.name || ''));
+    DB.amlLogs = DB.amlLogs.filter(a => !/\x48aji|La\x20Tunrung/i.test(a.entity || ''));
+    DB.automationLogs = DB.automationLogs.filter(a => !/\x48aji|La\x20Tunrung/i.test(a.entity || ''));
+    loadChecklistState();
+    updateScenarioFromChecklistProgress('sulut-001', false);
+}
+
+function saveChecklistState() {
+    const payload = {};
+    DB.scenarios.forEach(s => {
+        if (s.checklist) payload[s.id] = { items:s.checklist.map(i => !!i.done), updatedAt:s.checklistUpdatedAt || null };
+    });
+    localStorage.setItem(CHECKLIST_STORAGE_KEY_V7, JSON.stringify(payload));
+}
+function loadChecklistState() {
+    try {
+        const raw = localStorage.getItem(CHECKLIST_STORAGE_KEY_V7);
+        if (!raw) return;
+        const payload = JSON.parse(raw);
+        DB.scenarios.forEach(s => {
+            if (!s.checklist || !payload[s.id]) return;
+            s.checklist.forEach((item, idx) => { if (payload[s.id].items && payload[s.id].items[idx] !== undefined) item.done = !!payload[s.id].items[idx]; });
+            s.checklistUpdatedAt = payload[s.id].updatedAt || s.checklistUpdatedAt;
+        });
+    } catch(err) { console.warn('Checklist state load failed', err); }
+}
+function getChecklistProgress(scenarioId) {
+    const sc = getScenarioByIdSafe(scenarioId);
+    const total = sc?.checklist?.length || 0;
+    const done = sc?.checklist?.filter(i => i.done).length || 0;
+    return { done, total, pct: total ? Math.round(done / total * 100) : 0, updatedAt: sc?.checklistUpdatedAt || 'Belum ada pembaruan' };
+}
+function updateScenarioFromChecklistProgress(scenarioId, shouldRefresh) {
+    const sc = getScenarioByIdSafe(scenarioId);
+    if (!sc || !sc.checklist) return;
+    const p = getChecklistProgress(scenarioId);
+    if (scenarioId === 'sulut-001' && p.total && p.done === p.total) {
+        Object.assign(sc, { status:'Dokumen Lengkap / Menunggu Verifikasi BI', statusGroup:'SUBMITTED', severity:'info', type:'submitted', kpiFilter:'pending', badgeClass:'badge-info', badgeIcon:'fa-clock', countdownType:'pending', countdown:'Dokumen Lengkap — Menunggu Verifikasi BI', countdownLabel:'Seluruh dokumen sudah dikumpulkan; status belum otomatis selesai sampai ada verifikasi final BI.' });
+    } else if (scenarioId === 'sulut-001') {
+        Object.assign(sc, { status:'Batas Waktu Mendekat', statusGroup:'DUE_SOON', severity:'warning', type:'due-soon', kpiFilter:'upcoming', badgeClass:'badge-warning', badgeIcon:'fa-hourglass-half', countdownType:'warning', countdown:'2 Hari Tersisa', countdownLabel:'Batas Akhir Pengajuan: 24 Juni 2026 (Rabu)' });
+    }
+    if (shouldRefresh) refreshCurrentViewsAfterStatusChange(scenarioId);
+}
+function toggleChecklistItem(scenarioId, itemIndex) {
+    const sc = getScenarioByIdSafe(scenarioId);
+    if (!sc || !sc.checklist || !sc.checklist[itemIndex]) return;
+    sc.checklist[itemIndex].done = !sc.checklist[itemIndex].done;
+    sc.checklistUpdatedAt = new Date().toLocaleString('id-ID', { dateStyle:'medium', timeStyle:'short' });
+    updateScenarioFromChecklistProgress(scenarioId, false);
+    saveChecklistState();
+    showToast(`Milestone dokumen diperbarui: ${getChecklistProgress(scenarioId).done} dari ${getChecklistProgress(scenarioId).total} dokumen sudah dikumpulkan.`, 'success', 'Checklist Tersimpan', 2600);
+    refreshCurrentViewsAfterStatusChange(scenarioId);
+}
+function refreshCurrentViewsAfterStatusChange(scenarioId) {
+    renderKpiCards();
+    if (currentModule === 'tracker') {
+        if (currentTrackerSubtab === 'calendar') {
+            renderLiveCalendar();
+            if (currentRightPanelMode === 'active-detail') showActiveScenarioDetail(scenarioId);
+            else loadScenarioPanel(getScenarioByIdSafe(scenarioId));
+        } else if (currentTrackerSubtab === 'sanctions') renderSanctionsSubtab();
+        else if (currentTrackerSubtab === 'aml') renderAmlSubtab();
+    }
+}
+
+function recalcKpiCounts() { return calculateDashboardStats(); }
+function renderKpiCards() {
+    if (currentTrackerSubtab === 'sanctions') {
+        const active = DB.sanctionsPipeline.filter(s => s.active !== false && s.tingkat !== 'success').length;
+        const total = DB.sanctionsPipeline.length;
+        const closed = DB.sanctionsPipeline.filter(s => s.tingkat === 'success' || s.active === false).length;
+        document.getElementById('kpi-matrix-section').innerHTML = `
+            <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">Kasus Sanksi Aktif</p><p class="metric-value" style="color:#ef4444;">${active}</p><p class="metric-sub">Hanya critical/overdue aktif</p></div><div class="metric-icon icon-warnings"><i class="fa-solid fa-scale-balanced"></i></div></div>
+            <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">Critical Linked Event</p><p class="metric-value" style="color:#ef4444;">${getCriticalUnresolvedActivities().length}</p><p class="metric-sub">Sinkron dari kalender</p></div><div class="metric-icon icon-warnings"><i class="fa-solid fa-triangle-exclamation"></i></div></div>
+            <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">Kasus Ditutup</p><p class="metric-value" style="color:#10b981;">${closed}</p><p class="metric-sub">Histori / closed</p></div><div class="metric-icon icon-green"><i class="fa-solid fa-circle-check"></i></div></div>
+            <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">Total Kasus Tercatat</p><p class="metric-value" style="color:var(--accent-cyan);">${total}</p><p class="metric-sub">Aktif + histori</p></div><div class="metric-icon icon-total"><i class="fa-solid fa-shield-halved"></i></div></div>`;
+        return;
+    }
+    if (currentTrackerSubtab === 'aml') {
+        const critical = DB.amlLogs.filter(a => a.risk === 'KRITIKAL' && !/selesai|dilaporkan/i.test(a.status)).length;
+        const submitted = DB.amlLogs.filter(a => /selesai|dilaporkan|menunggu verifikasi/i.test(a.status)).length;
+        document.getElementById('kpi-matrix-section').innerHTML = `
+            <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">LTKM Kritikal Belum Selesai</p><p class="metric-value text-critical">${critical}</p><p class="metric-sub">SLA 3 hari kerja</p></div><div class="metric-icon icon-warnings"><i class="fa-solid fa-shield-halved"></i></div></div>
+            <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">Matriks Dalam Proses</p><p class="metric-value" style="color:#0EA5E9;">${DB.amlLogs.filter(a=>/belum|info|menunggu/i.test(a.status)).length}</p><p class="metric-sub">Belum final closed</p></div><div class="metric-icon icon-pending"><i class="fa-solid fa-clock"></i></div></div>
+            <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">Submitted / Selesai</p><p class="metric-value" style="color:#10b981;">${submitted}</p><p class="metric-sub">Terkirim / terverifikasi</p></div><div class="metric-icon icon-green"><i class="fa-solid fa-paper-plane"></i></div></div>
+            <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">Total Matriks</p><p class="metric-value" style="color:var(--accent-cyan);">${DB.amlLogs.length}</p><p class="metric-sub">APU/PPT/PPPSPM</p></div><div class="metric-icon icon-total"><i class="fa-solid fa-file-shield"></i></div></div>`;
+        return;
+    }
+    const c = calculateDashboardStats();
+    const kpi = document.getElementById('kpi-matrix-section');
+    if (!kpi) return;
+    kpi.innerHTML = `
+        <div class="metric-card" id="card-pending" onclick="toggleKpiFilter('pending', this)"><div class="metric-card-left"><p class="metric-label">Laporan / Skenario Aktif</p><p class="metric-value" style="color:#0EA5E9;">${c.pending}</p><p class="metric-sub">Submitted, incoming, in progress</p></div><div class="metric-icon icon-pending"><i class="fa-solid fa-clock-rotate-left"></i></div></div>
+        <div class="metric-card" id="card-upcoming" onclick="toggleKpiFilter('upcoming', this)"><div class="metric-card-left"><p class="metric-label">Batas Waktu Pekan Ini</p><p class="metric-value" style="color:#f59e0b;">${c.upcoming}</p><p class="metric-sub">Due soon / butuh perhatian</p></div><div class="metric-icon icon-upcoming"><i class="fa-solid fa-hourglass-half"></i></div></div>
+        <div class="metric-card" id="card-warnings" onclick="toggleKpiFilter('warnings', this)"><div class="metric-card-left"><p class="metric-label">Peringatan Belum Selesai</p><p class="metric-value text-critical">${c.warnings}</p><p class="metric-sub">Overdue/kritikal aktif</p></div><div class="metric-icon icon-warnings"><i class="fa-solid fa-triangle-exclamation"></i></div></div>
+        <div class="metric-card" id="card-total" onclick="resetToTrackerDefault()"><div class="metric-card-left"><p class="metric-label">Total KUPVA BB Diawasi</p><p class="metric-value" style="color:var(--accent-cyan);">${c.total}</p><p class="metric-sub">${c.active} skenario aktif bulan ini</p></div><div class="metric-icon icon-total"><i class="fa-solid fa-shield-halved"></i></div></div>`;
+    const badge = document.getElementById('tracker-menu-badge');
+    if (badge) badge.textContent = c.active;
+}
+
+function renderLiveCalendar() {
+    const eventsByDay = {};
+    getCurrentMonthActivities().forEach(ev => { (eventsByDay[ev.day] = eventsByDay[ev.day] || []).push(ev); });
+    const totalDays = daysInMonth(viewYear, viewMonth);
+    const offset = firstDayOffsetMon(viewYear, viewMonth);
+    const weekendIdx = [5,6];
+    let dayCells = '';
+    for (let i=0; i<offset; i++) dayCells += `<div class="cal-day cal-empty"></div>`;
+    for (let d=1; d<=totalDays; d++) {
+        const dow = (offset + d - 1) % 7;
+        const isToday = (d === TODAY_DAY && viewMonth === TODAY_MONTH_IDX && viewYear === TODAY_YEAR);
+        let cls = 'cal-day' + (isToday ? ' cal-today' : '') + (weekendIdx.includes(dow) ? ' cal-weekend' : '');
+        const banner = isToday ? `<div class="today-monitoring-banner">TODAY'S ACTIVE MONITORING MATRIX — ${TODAY_DOW}, ${TODAY_DAY} ${MONTH_NAMES_ID[TODAY_MONTH_IDX]} ${TODAY_YEAR}</div>` : '';
+        const chip = isToday ? `<span class="today-chip">HARI INI</span>` : '';
+        const badges = (eventsByDay[d] || []).map(ev => `<div class="ev-badge ${ev.badgeClass}" data-activity-id="${ev.id}" data-entity-id="${ev.entityId}" data-search="${ev.searchText}" onclick="handleEventClick('${ev.id}', event)"><i class="fa-solid ${ev.badgeIcon}"></i><span>${ev.entityShort}: ${ev.shortTitle || ev.obligationType}</span></div>`).join('');
+        dayCells += `<div class="${cls}" data-day="${d}">${banner}<div class="day-num">${d}${chip}</div>${badges}</div>`;
+    }
+    const totalCells = offset + totalDays;
+    if (totalCells % 7 !== 0) for (let i=0; i<7-(totalCells%7); i++) dayCells += `<div class="cal-day cal-empty"></div>`;
+    document.getElementById('dynamic-module-workspace').innerHTML = `
+        <div class="calendar-shell">
+            <div class="calendar-header">
+                <div>
+                    <div class="calendar-header-title"><i class="fa-solid fa-calendar-days" style="color:var(--accent-cyan);margin-right:8px;"></i>Kalender Surveillance KUPVA BB — ${MONTH_NAMES_ID[viewMonth]} ${viewYear}</div>
+                    <div class="calendar-header-meta" style="margin-top:4px;">KPwBI Sulawesi Utara · ${calculateDashboardStats().active} aktivitas aktif · ${getCriticalUnresolvedActivities().length} peringatan kritikal aktif</div>
+                </div>
+                <div class="cal-legend">
+                    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--red);"></div>Kritikal / Overdue</div>
+                    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--yellow);"></div>Batas Waktu</div>
+                    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--green);"></div>Selesai</div>
+                    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--blue);"></div>Info / Menunggu Verifikasi</div>
+                    <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--gray);"></div>Closed</div>
+                </div>
+            </div>
+            <div class="cal-weekdays"><div class="cal-weekday">SEN</div><div class="cal-weekday">SEL</div><div class="cal-weekday">RAB</div><div class="cal-weekday">KAM</div><div class="cal-weekday">JUM</div><div class="cal-weekday">SAB</div><div class="cal-weekday">MIN</div></div>
+            <div class="cal-days" id="calendar-days-grid">${dayCells}</div>
+        </div>`;
+    applySearchFilter(document.getElementById('global-search')?.value || '');
+}
+function handleEventClick(activityId, e) {
+    if (e) e.stopPropagation();
+    const sc = getScenarioByActivityId(activityId);
+    if (sc) { selectedScenarioIdFromActiveList = null; currentRightPanelMode = 'scenario-detail'; loadScenarioPanel(sc); return; }
+    const act = getActivityById(activityId);
+    if (act) loadExtraEventPanel(act);
+}
+
+function resetToTrackerDefault() {
+    hideBackButton();
+    document.getElementById('workspace-title').textContent = `KUPVA BB Tracker — ${MONTH_NAMES_ID[viewMonth]} ${viewYear}`;
+    currentKpiFilter = null;
+    currentRightPanelMode = 'active-list';
+    document.querySelectorAll('.metric-card').forEach(c => c.classList.remove('kpi-active'));
+    renderToolbar({ showMonthNav:true, showAddBtn:true, showFilterExport:true });
+    renderLiveCalendar();
+    showActiveScenarioList();
+}
+function showActiveScenarioList() {
+    currentRightPanelMode = 'active-list';
+    selectedScenarioIdFromActiveList = null;
+    const items = getActiveActivities();
+    document.getElementById('panel-tag').textContent = 'Skenario Aktif';
+    document.getElementById('panel-title').textContent = `${items.length} Skenario Aktif — ${MONTH_NAMES_ID[viewMonth]} ${viewYear}`;
+    document.getElementById('panel-sub').innerHTML = `<i class="fa-solid fa-calendar-check"></i>&nbsp;&nbsp;Dihitung dinamis dari event kalender bulan berjalan`;
+    const list = items.length ? items.map(a => `<div class="active-scenario-row" data-activity-id="${a.id}" onclick="showActiveScenarioDetail('${a.id}')">
+        <div class="active-scenario-icon ${a.severity}"><i class="fa-solid ${a.badgeIcon}"></i></div>
+        <div class="active-scenario-main"><div class="active-scenario-entity">${a.entity}</div><div class="active-scenario-desc">${a.obligationType}</div><div class="active-scenario-status"><span class="pill ${a.pillClass}">${a.status}</span></div></div>
+        <div class="active-scenario-date">${a.day} ${MONTH_NAMES_ID[a.month]}</div>
+    </div>`).join('') : `<div class="notif-empty">Tidak ada skenario aktif pada ${MONTH_NAMES_ID[viewMonth]} ${viewYear}.</div>`;
+    document.getElementById('panel-body').innerHTML = `<div class="active-scenario-card"><div class="active-scenario-list">${list}</div></div>`;
+}
+function showActiveScenarioDetail(activityId) {
+    currentRightPanelMode = 'active-detail';
+    selectedScenarioIdFromActiveList = activityId;
+    const scenario = getScenarioByActivityId(activityId);
+    const activity = getActivityById(activityId);
+    document.querySelectorAll('.active-scenario-row').forEach(row => row.classList.toggle('selected', row.dataset.activityId === activityId));
+    if (scenario) {
+        loadScenarioPanel(scenario);
+        const body = document.getElementById('panel-body');
+        body.insertAdjacentHTML('afterbegin', `<button class="panel-btn panel-btn-ghost active-back-btn" onclick="showActiveScenarioList()"><i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar Skenario Aktif</button>`);
+    } else if (activity) {
+        loadExtraEventPanel(activity);
+        const body = document.getElementById('panel-body');
+        body.insertAdjacentHTML('afterbegin', `<button class="panel-btn panel-btn-ghost active-back-btn" onclick="showActiveScenarioList()"><i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar Skenario Aktif</button>`);
+    }
+}
+function setPanelDefault() { showActiveScenarioList(); }
+
+function buildChecklistHtml(label, checklist, scenarioId) {
+    if (!checklist) return '';
+    const p = getChecklistProgress(scenarioId);
+    const items = checklist.map((item, idx) => `<div class="checklist-item milestone ${item.done ? 'done' : ''}" onclick="toggleChecklistItem('${scenarioId}', ${idx})" role="button" tabindex="0">
+        <button class="checklist-toggle" onclick="event.stopPropagation();toggleChecklistItem('${scenarioId}', ${idx})" aria-label="Toggle dokumen ${idx+1}"><i class="fa-solid ${item.done ? 'fa-circle-check' : 'fa-circle'} checklist-icon"></i></button>
+        <span>${item.item}</span>
+    </div>`).join('');
+    return `<div><div class="detail-group-label"><i class="fa-solid fa-list-check" style="font-size:10px;"></i>${label}</div>
+        <div class="checklist-progress"><div><strong>${p.done} dari ${p.total} dokumen sudah dikumpulkan</strong><span>Diperbarui: ${p.updatedAt}</span></div><div class="progress-bar"><div style="width:${p.pct}%"></div></div></div>
+        <div class="checklist">${items}</div></div>`;
+}
+function loadScenarioPanel(sc) {
+    if (!sc) return;
+    const a = normalizeActivity(sc, 'scenarios');
+    document.getElementById('panel-tag').textContent = `SKENARIO — ${a.statusGroup}`;
+    document.getElementById('panel-title').textContent = a.entity;
+    document.getElementById('panel-sub').innerHTML = `<i class="fa-solid fa-map-marker-alt"></i>&nbsp;&nbsp;${a.location.substring(0,70)}${a.location.length>70?'…':''}`;
+    let bodyHtml = `<div class="countdown-box type-${a.severity === 'critical' ? 'critical' : a.severity === 'warning' ? 'warning' : a.severity === 'success' ? 'success' : 'pending'}"><i class="fa-solid ${a.badgeIcon} countdown-icon"></i><div><div class="countdown-time">${a.status}</div><div class="countdown-sub">${sc.countdown || a.obligationType} · ${sc.countdownLabel || ''}</div></div></div>`;
+    bodyHtml += `<div><div class="detail-group-label"><i class="fa-solid fa-gavel" style="font-size:10px;"></i>Regulasi & Dasar Hukum</div><div class="legal-card"><div class="legal-card-title">${a.law}</div><div class="legal-card-desc">${sc.description || ''}</div><div class="legal-card-ref"><i class="fa-solid fa-link"></i>${sc.lawDetail || a.obligationType}</div></div></div>`;
+    if (sc.id === 'sulut-001') {
+        bodyHtml += buildChecklistHtml('Checklist Dokumen Perpanjangan Izin', sc.checklist, sc.id);
+        bodyHtml += `<div class="branch-info-grid"><div class="branch-info-cell"><div class="branch-info-key">Masa Berlaku Izin</div><div class="branch-info-val">5 Tahun</div></div><div class="branch-info-cell"><div class="branch-info-key">Kadaluarsa</div><div class="branch-info-val" style="color:#f59e0b;">${sc.izinExpiry}</div></div><div class="branch-info-cell"><div class="branch-info-key">Direktur Utama</div><div class="branch-info-val">${sc.namaDir}</div></div><div class="branch-info-cell"><div class="branch-info-key">Modal Disetor</div><div class="branch-info-val" style="color:var(--accent-cyan);">${sc.modal}</div></div></div>`;
+        if (a.statusGroup !== 'SUBMITTED') bodyHtml += `<div style="background:var(--yellow-bg);border:1px solid var(--yellow-b);border-radius:var(--radius-md);padding:12px 14px;font-size:11.5px;color:#92400e;"><strong><i class="fa-solid fa-circle-exclamation"></i>&nbsp;Peringatan Regulasi:</strong><br><span style="color:var(--text-muted);margin-top:4px;display:block;">Kegagalan mengajukan perpanjangan sebelum jatuh tempo dapat mengakibatkan pembekuan izin usaha dan sanksi administratif.</span></div>`;
+        else bodyHtml += `<div style="background:var(--blue-bg);border:1px solid var(--blue-b);border-radius:var(--radius-md);padding:12px 14px;font-size:11.5px;color:#075985;"><strong><i class="fa-solid fa-inbox"></i>&nbsp;Menunggu Verifikasi BI:</strong><br><span style="color:var(--text-muted);margin-top:4px;display:block;">Dokumen lengkap tidak otomatis menjadi selesai. Status final baru berubah setelah verifikasi BI completed/closed.</span></div>`;
+        bodyHtml += buildEntityComplianceProfileHtml(sc.entity);
+        bodyHtml += `<button class="panel-btn panel-btn-gold" onclick="triggerWhatsAppAlert('${sc.entity}')"><i class="fa-brands fa-whatsapp"></i> Kirim Reminder Urgent via WhatsApp</button>`;
+    } else if (sc.id === 'sulut-002') {
+        const t = sc.amlDetails || {};
+        bodyHtml += `<div><div class="detail-group-label"><i class="fa-solid fa-shield-halved" style="font-size:10px;"></i>Detail Transaksi Mencurigakan (TKM)</div><div class="aml-transaction-box"><div class="aml-tx-title"><i class="fa-solid fa-triangle-exclamation"></i>ANOMALI TRANSAKSI TERDETEKSI — LTKM WAJIB</div><div class="aml-tx-row"><span class="aml-tx-key">Nilai Transaksi UKA</span><span class="aml-tx-val critical">${t.nilaiTransaksi || '-'}</span></div><div class="aml-tx-row"><span class="aml-tx-key">Setara Mata Uang</span><span class="aml-tx-val">${t.matauang || '-'}</span></div><div class="aml-tx-row"><span class="aml-tx-key">Tanggal & Waktu</span><span class="aml-tx-val">${t.tglTransaksi || '-'}</span></div><div class="aml-tx-row"><span class="aml-tx-key">Batas Lapor PPATK</span><span class="aml-tx-val critical">${t.batasLapor || 'Maks. 3 hari kerja'}</span></div><div class="aml-tx-row"><span class="aml-tx-key">Aplikasi Pelaporan</span><span class="aml-tx-val">${t.aplikasi || 'Sistem Pelaporan PPATK'}</span></div></div></div>`;
+        bodyHtml += `<div style="background:var(--red-bg);border:1px solid var(--red-b);border-radius:var(--radius-md);padding:12px 14px;font-size:11.5px;color:#7f1d1d;"><strong><i class="fa-solid fa-ban"></i>&nbsp;Larangan Tipping-Off:</strong><br>Dilarang memberitahukan nasabah bahwa transaksinya sedang diinvestigasi atau dilaporkan.</div>`;
+        bodyHtml += buildEntityComplianceProfileHtml(sc.entity);
+        bodyHtml += `<button class="panel-btn panel-btn-danger" onclick="escalateToPPATK('${sc.entity}')"><i class="fa-solid fa-paper-plane"></i> Koordinasi Tindak Lanjut LTKM</button><button class="panel-btn panel-btn-ghost" onclick="triggerWhatsAppAlert('${sc.entity}')"><i class="fa-brands fa-whatsapp"></i> Kirim Alert WhatsApp</button>`;
+    } else if (sc.id === 'sulut-003') {
+        const b = sc.branchDetails || {};
+        bodyHtml += `<div><div class="detail-group-label"><i class="fa-solid fa-building" style="font-size:10px;"></i>Detail Realisasi Pembukaan Cabang</div><div class="branch-info-grid"><div class="branch-info-cell"><div class="branch-info-key">Tgl Izin BI</div><div class="branch-info-val">${b.tglIzinBI || '-'}</div></div><div class="branch-info-cell"><div class="branch-info-key">Tgl Mulai Operasional</div><div class="branch-info-val" style="color:#10b981;">${b.tglMulaiOps || '-'}</div></div><div class="branch-info-cell"><div class="branch-info-key">Laporan Diserahkan</div><div class="branch-info-val" style="color:#0EA5E9;">${b.tglLaporDiserahkan || '-'}</div></div><div class="branch-info-cell"><div class="branch-info-key">Kepala Cabang</div><div class="branch-info-val">${b.kepalaCabang || '-'}</div></div></div></div>`;
+        bodyHtml += buildChecklistHtml('Checklist Kelengkapan Dokumen Cabang', sc.checklist, sc.id);
+        bodyHtml += `<div style="background:var(--blue-bg);border:1px solid var(--blue-b);border-radius:var(--radius-md);padding:12px 14px;font-size:11.5px;color:#075985;"><strong><i class="fa-solid fa-clock"></i>&nbsp;Regulasi Waktu:</strong><br><span style="color:var(--text-muted);margin-top:4px;display:block;">Laporan realisasi cabang maksimal 10 hari kerja sejak operasional dimulai. Status saat ini menunggu verifikasi BI, bukan selesai.</span></div>`;
+        bodyHtml += buildEntityComplianceProfileHtml(sc.entity);
+    } else if (sc.id === 'sulut-004') {
+        bodyHtml += buildChecklistHtml('Checklist Persyaratan Administratif Izin Baru', sc.checklist, sc.id);
+        bodyHtml += `<div class="branch-info-grid"><div class="branch-info-cell"><div class="branch-info-key">Calon Direktur</div><div class="branch-info-val">${sc.namaDir}</div></div><div class="branch-info-cell"><div class="branch-info-key">Modal Minimum</div><div class="branch-info-val" style="color:var(--accent-cyan);">${sc.modal}</div></div></div>`;
+        bodyHtml += buildEntityComplianceProfileHtml(sc.entity);
+        bodyHtml += `<button class="panel-btn panel-btn-gold" onclick="triggerWhatsAppAlert('${sc.entity}')"><i class="fa-brands fa-whatsapp"></i> Kirim Notifikasi Milestone via WhatsApp</button>`;
+    } else {
+        bodyHtml += buildChecklistHtml('Checklist Dokumen', sc.checklist, sc.id);
+        bodyHtml += buildEntityComplianceProfileHtml(sc.entity);
+    }
+    document.getElementById('panel-body').innerHTML = bodyHtml;
+}
+function loadExtraEventPanel(ev) {
+    const a = normalizeActivity(ev, ev.moduleSource || 'additionalEvents');
+    document.getElementById('panel-tag').textContent = `EVENT KALENDER — ${a.statusGroup}`;
+    document.getElementById('panel-title').textContent = a.entity;
+    document.getElementById('panel-sub').innerHTML = `<i class="fa-solid fa-calendar"></i>&nbsp;&nbsp;${a.day} ${MONTH_NAMES_ID[a.month]} ${a.year}`;
+    document.getElementById('panel-body').innerHTML = `<div class="legal-card"><div class="legal-card-title">${a.title}</div><div class="legal-card-desc">${a.desc || a.description || ''}</div><div class="legal-card-ref"><i class="fa-solid fa-link"></i>${a.law}</div></div><div class="countdown-box type-${a.severity === 'success' ? 'success' : a.severity === 'closed' ? 'info' : a.severity}"><i class="fa-solid ${a.badgeIcon} countdown-icon"></i><div><div class="countdown-time">${a.status}</div><div class="countdown-sub">${a.statusGroup} · ${a.isActive ? 'Aktif' : 'Tidak dihitung sebagai skenario aktif'}</div></div></div>`;
+}
+
+function renderPendingTable() {
+    const items = getCurrentMonthActivities().filter(a => a.isActive && !a.isCritical && !a.isWarning);
+    renderActivityTable('Laporan / Skenario Aktif — Submitted, Incoming, In Progress', items, 'fa-clock-rotate-left', 'var(--blue)');
+}
+function renderUpcomingTable() { renderActivityTable('Batas Waktu Pekan Ini — Due Soon', getDueThisWeekActivities(), 'fa-hourglass-half', 'var(--yellow)'); }
+function renderWarningsQueue() { renderActivityTable('Peringatan Belum Selesai — Critical / Overdue', getCriticalUnresolvedActivities(), 'fa-triangle-exclamation', 'var(--red)'); }
+function renderActivityTable(title, items, icon, color) {
+    const rows = items.map(a => `<tr data-search="${a.searchText}" onclick="showActiveScenarioDetail('${a.id}')">
+        <td><span class="entity-name">${a.entity}</span><span class="entity-id">${a.entityId}</span><span class="entity-location"><i class="fa-solid fa-location-dot" style="font-size:9px;color:var(--accent-cyan);"></i> ${a.location}</span></td>
+        <td><strong>${a.obligationType}</strong><div style="font-size:11px;color:var(--text-muted);margin-top:3px;">${a.title || ''}</div></td>
+        <td><span class="pill ${a.pillClass}">${a.status}</span></td>
+        <td><span class="mono-text">${a.day} ${MONTH_NAMES_ID[a.month]} ${a.year}</span></td>
+        <td><span class="mono-text">${a.law}</span></td>
+        <td><div class="sla-bar-wrap"><div class="sla-bar"><div class="sla-bar-fill" style="width:${a.sla || 0}%;background:${a.slaColor || (a.isCritical ? '#ef4444' : a.isWarning ? '#f59e0b' : '#0EA5E9')};"></div></div><span class="sla-pct">${a.sla || 0}%</span></div></td>
+    </tr>`).join('') || `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:26px;">Tidak ada data sesuai filter.</td></tr>`;
+    document.getElementById('dynamic-module-workspace').innerHTML = `<div class="list-shell"><div class="list-shell-header"><div class="list-shell-title"><i class="fa-solid ${icon}" style="color:${color};"></i> ${title} <span class="list-shell-count">${items.length} Aktivitas</span></div></div><table class="data-table"><thead><tr><th>Entitas</th><th>Kewajiban</th><th>Status</th><th>Tanggal</th><th>Dasar Hukum</th><th>SLA</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+    applySearchFilter(document.getElementById('global-search')?.value || '');
+}
+
+function renderSanctionsSubtab() {
+    hideBackButton();
+    renderToolbar({ showMonthNav:false, showAddBtn:true, showFilterExport:false });
+    document.getElementById('workspace-title').textContent = 'KUPVA BB Tracker — Sanksi';
+    const activeRows = DB.sanctionsPipeline.map(s => {
+        const active = s.active !== false && s.tingkat !== 'success';
+        return `<tr data-search="${ds(s.entity,s.violation,s.status)}" onclick="loadEntitySanctionPanel('${s.entity}')">
+            <td><span class="entity-name">${s.entity}</span></td><td>${s.violation}</td><td><span class="mono-text">${s.denda}</span></td><td><span class="pill ${active ? 'pill-danger' : 'pill-success'}">${active ? 'Aktif' : 'Closed'}</span></td><td>${s.deadline}</td><td>${active ? `<button class="btn-wa-resend" onclick="event.stopPropagation();triggerWhatsAppAlert('${s.entity}')"><i class="fa-brands fa-whatsapp"></i> Eskalasi WA</button>` : '<span class="text-muted">Histori</span>'}</td></tr>`;
+    }).join('');
+    document.getElementById('dynamic-module-workspace').innerHTML = `<div class="list-shell"><div class="list-shell-header"><div class="list-shell-title"><i class="fa-solid fa-scale-balanced" style="color:#ef4444;"></i> Pipeline Sanksi Sinkron dengan Kalender <span class="list-shell-count">${DB.sanctionsPipeline.filter(s=>s.active!==false&&s.tingkat!=='success').length} Aktif</span></div></div><table class="data-table"><thead><tr><th>Entitas</th><th>Pelanggaran</th><th>Sanksi/Denda</th><th>Status</th><th>SLA</th><th>Aksi</th></tr></thead><tbody>${activeRows}</tbody></table></div>`;
+    loadEntitySanctionPanel('PT Sentralindo Valutama');
+    applySearchFilter(document.getElementById('global-search')?.value || '');
+}
+function renderAmlSubtab() {
+    hideBackButton();
+    renderToolbar({ showMonthNav:false, showAddBtn:true, showFilterExport:false });
+    document.getElementById('workspace-title').textContent = 'KUPVA BB Tracker — Matriks Laporan APU/PPT';
+    const rows = DB.amlLogs.map(a => `<tr data-search="${ds(a.entity,a.type,a.value,a.status,a.sla)}" onclick="loadEntityAmlPanel('${a.entity}')"><td><span class="entity-name">${a.entity}</span></td><td>${a.type}</td><td><span class="mono-text">${a.value}</span></td><td>${a.date}</td><td><span class="pill ${/belum|kritikal/i.test(a.status+a.risk) ? 'pill-danger' : /menunggu|info/i.test(a.status) ? 'pill-info' : 'pill-success'}">${a.status}</span></td><td>${a.sla}</td><td><span class="pill ${getPillClass(a.risk === 'KRITIKAL' ? 'Tinggi' : a.risk)}">${a.risk}</span></td></tr>`).join('');
+    document.getElementById('dynamic-module-workspace').innerHTML = `<div class="list-shell"><div class="list-shell-header"><div class="list-shell-title"><i class="fa-solid fa-file-shield" style="color:var(--accent-cyan);"></i> Matriks APU/PPT & PPPSPM <span class="list-shell-count">${DB.amlLogs.length} Kewajiban</span></div></div><table class="data-table"><thead><tr><th>Entitas</th><th>Jenis Laporan</th><th>Nilai/Objek</th><th>Tanggal</th><th>Status</th><th>SLA Regulasi</th><th>Risiko</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+    loadEntityAmlPanel('PT Sentralindo Valutama');
+    applySearchFilter(document.getElementById('global-search')?.value || '');
+}
+function loadEntitySanctionPanel(name) {
+    const sanc = DB.sanctionsPipeline.find(s => s.entity === name);
+    if (!sanc) return;
+    document.getElementById('panel-tag').textContent = 'MANAJEMEN PENEGAKAN SANKSI';
+    document.getElementById('panel-title').textContent = sanc.entity;
+    document.getElementById('panel-sub').innerHTML = `<i class="fa-solid fa-gavel"></i>&nbsp;&nbsp;${sanc.status}`;
+    document.getElementById('panel-body').innerHTML = `<div class="countdown-box type-${sanc.active === false || sanc.tingkat === 'success' ? 'success' : 'critical'}"><i class="fa-solid fa-gavel countdown-icon"></i><div><div class="countdown-time">${sanc.status}</div><div class="countdown-sub">${sanc.deadline}</div></div></div><div class="legal-card"><div class="legal-card-title">Detail Pelanggaran</div><div class="legal-card-desc">${sanc.violation}</div><div class="legal-card-ref"><i class="fa-solid fa-scale-balanced"></i>${sanc.denda}</div></div>${buildEntityComplianceProfileHtml(sanc.entity)}${sanc.active === false ? '' : `<button class="panel-btn panel-btn-danger" onclick="triggerWhatsAppAlert('${sanc.entity}')"><i class="fa-brands fa-whatsapp"></i> Eskalasi WhatsApp</button>`}`;
+}
+
+function ensureSearchSuggestionsContainer() {
+    let box = document.getElementById('search-suggestions');
+    if (!box) {
+        box = document.createElement('div'); box.id = 'search-suggestions'; box.className = 'search-suggestions d-none';
+        document.querySelector('.search-wrap')?.appendChild(box);
+    }
+    return box;
+}
+function renderSearchSuggestions(query) {
+    const box = ensureSearchSuggestionsContainer();
+    const q = normalizeSearchText(query || '').trim();
+    if (!q) { box.classList.add('d-none'); box.innerHTML = ''; return; }
+    const matches = DB.masterEntities.filter(e => normalizeSearchText(e.name,e.id,e.location,e.status,e.risiko,e.namaDir).includes(q)).slice(0,8);
+    box.classList.remove('d-none');
+    if (!matches.length) { box.innerHTML = `<div class="search-suggestion-empty">Tidak ada entitas yang cocok dengan pencarian.</div>`; return; }
+    box.innerHTML = matches.map(e => `<div class="search-suggestion-item" onclick="selectSearchEntity('${e.id}')"><div><strong>${e.name}</strong><span>${e.id} · ${e.location} · Risiko ${e.risiko}</span></div><i class="fa-solid fa-arrow-right"></i></div>`).join('');
+}
+function handleGlobalSearch(val) {
+    document.getElementById('search-clear-btn').style.display = val ? 'block' : 'none';
+    renderSearchSuggestions(val);
+    if (currentModule === 'master') renderMasterTable(val);
+    else applySearchFilter(val);
+}
+function clearGlobalSearch() {
+    document.getElementById('global-search').value = '';
+    document.getElementById('search-clear-btn').style.display = 'none';
+    renderSearchSuggestions('');
+    if (currentModule === 'master') renderMasterTable('');
+    else applySearchFilter('');
+}
+function selectSearchEntity(entityId) {
+    const ent = DB.masterEntities.find(e => e.id === entityId);
+    if (!ent) return;
+    renderSearchSuggestions('');
+    loadMasterEntityPanel(entityId);
+    highlightEntityActivities(entityId);
+    showToast(`Entitas ${ent.name} ditemukan dari Data Master. Event terkait sudah di-highlight.`, 'info', 'Search Entitas', 2600);
+}
+function highlightEntityActivities(entityId) {
+    document.querySelectorAll('.ev-badge').forEach(b => b.classList.toggle('search-match', b.dataset.entityId === entityId));
+    document.querySelectorAll('.cal-day').forEach(day => day.classList.toggle('search-hit', !!day.querySelector('.ev-badge.search-match')));
+}
+function applySearchFilter(rawQuery) {
+    const q = normalizeSearchText(rawQuery || '').trim();
+    document.querySelectorAll('#dynamic-module-workspace tr[data-search]').forEach(tr => { tr.style.display = (!q || normalizeSearchText(tr.dataset.search).includes(q)) ? '' : 'none'; });
+    document.querySelectorAll('#dynamic-module-workspace .accordion-item[data-search]').forEach(item => { item.style.display = (!q || normalizeSearchText(item.dataset.search).includes(q)) ? '' : 'none'; });
+    document.querySelectorAll('#dynamic-module-workspace .cheat-category-card[data-search]').forEach(card => { card.style.display = (!q || normalizeSearchText(card.dataset.search).includes(q)) ? '' : 'none'; });
+    document.querySelectorAll('.ev-badge[data-search]').forEach(b => b.classList.toggle('search-match', !!q && normalizeSearchText(b.dataset.search).includes(q)));
+    document.querySelectorAll('.cal-day').forEach(day => day.classList.toggle('search-hit', !!day.querySelector('.ev-badge.search-match')));
+}
+function renderMasterTable(query) {
+    const q = normalizeSearchText(query || '').trim();
+    const statusPill = (s) => { const map = { 'Aktif':'pill-success','Pengawasan Khusus':'pill-danger','Permohonan Baru':'pill-info','Teguran Aktif':'pill-warning' }; return `<span class="pill ${map[s]||'pill-neutral'}">${s}</span>`; };
+    const filtered = DB.masterEntities.filter(e => !q || normalizeSearchText(e.name,e.id,e.location,e.status,e.risiko,e.namaDir).includes(q));
+    const rows = filtered.length ? filtered.map(e => `<tr data-search="${normalizeSearchText(e.name,e.id,e.location,e.status,e.risiko,e.namaDir)}" onclick="loadMasterEntityPanel('${e.id}')"><td><span class="entity-name">${e.name}</span><span class="entity-id">${e.id}</span><span class="entity-location"><i class="fa-solid fa-location-dot" style="font-size:9px;color:var(--accent-cyan);"></i>&nbsp;${e.location}</span></td><td>${statusPill(e.status)}</td><td><span style="font-weight:600;">${e.cabang}</span></td><td><span class="mono-text">${e.modal}</span></td><td><span class="pill ${getPillClass(e.risiko)}">${e.risiko}</span></td><td>${e.izinExpiry}</td></tr>`).join('') : `<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:28px;">Tidak ada entitas yang cocok dengan pencarian.</td></tr>`;
+    document.getElementById('dynamic-module-workspace').innerHTML = `<div class="list-shell"><div class="list-shell-header"><div class="list-shell-title"><i class="fa-solid fa-building" style="color:var(--accent-cyan);"></i> Daftar Entitas KUPVA BB — KPwBI Sulawesi Utara <span class="list-shell-count">${filtered.length} Entitas</span></div></div><div class="table-scroll-wrap"><table class="data-table"><thead><tr><th>Nama Entitas KUPVA BB</th><th>Status Lisensi</th><th>Jaringan Kantor</th><th>Modal Disetor</th><th>Profil Risiko</th><th>Kadaluarsa Izin</th></tr></thead><tbody>${rows}</tbody></table></div></div>${renderKpwOfficeAndMapSection()}`;
+}
+function loadMasterEntityPanel(id) {
+    const ent = DB.masterEntities.find(e => e.id === id);
+    if (!ent) return;
+    const related = getAllCalendarActivities().filter(a => a.entityId === id || a.entity === ent.name);
+    document.getElementById('panel-tag').textContent = 'PROFIL DATA MASTER 360°';
+    document.getElementById('panel-title').textContent = ent.name;
+    document.getElementById('panel-sub').innerHTML = `<i class="fa-solid fa-location-dot"></i>&nbsp;&nbsp;${ent.location}`;
+    let bodyHtml = `<div class="branch-info-grid"><div class="branch-info-cell"><div class="branch-info-key">ID Validasi BI</div><div class="branch-info-val font-mono">${ent.id}</div></div><div class="branch-info-cell"><div class="branch-info-key">Status</div><div class="branch-info-val">${ent.status}</div></div><div class="branch-info-cell"><div class="branch-info-key">Modal Disetor</div><div class="branch-info-val" style="color:var(--accent-cyan);">${ent.modal}</div></div><div class="branch-info-cell"><div class="branch-info-key">Jaringan Kantor</div><div class="branch-info-val">${ent.cabang}</div></div><div class="branch-info-cell"><div class="branch-info-key">Direktur Utama</div><div class="branch-info-val">${ent.namaDir}</div></div><div class="branch-info-cell"><div class="branch-info-key">Profil Risiko</div><div class="branch-info-val"><span class="pill ${getPillClass(ent.risiko)}">${ent.risiko}</span></div></div></div>`;
+    if (related.length) bodyHtml += `<div class="profile-merge-box"><div class="detail-group-label"><i class="fa-solid fa-calendar-check" style="font-size:10px;"></i>Event Kalender Terkait</div>${related.map(a => `<div class="profile-merge-row" style="cursor:pointer;" onclick="switchModule('tracker');setTimeout(()=>showActiveScenarioDetail('${a.id}'),60)"><span class="profile-merge-key"><i class="fa-solid ${a.badgeIcon}" style="color:${a.isCritical ? 'var(--red)' : a.isWarning ? 'var(--yellow)' : a.isCompleted ? 'var(--green)' : 'var(--blue)'};margin-right:6px;"></i>${a.obligationType}</span><span class="profile-merge-val">${a.day} ${MONTH_NAMES_ID[a.month]}</span></div>`).join('')}</div>`;
+    bodyHtml += buildEntityComplianceProfileHtml(ent.name);
+    document.getElementById('panel-body').innerHTML = bodyHtml;
+}
+
+function buildNotifList() {
+    const items = [];
+    getCriticalUnresolvedActivities().forEach(a => items.push({ title:a.entity, sub:`${a.obligationType} — ${a.status}`, onclick:`switchModule('tracker');switchTrackerSubtab('calendar');showActiveScenarioDetail('${a.id}');closeNotifPopover();` }));
+    getDueThisWeekActivities().forEach(a => items.push({ title:a.entity, sub:`${a.obligationType} — ${a.status}`, onclick:`switchModule('tracker');switchTrackerSubtab('calendar');showActiveScenarioDetail('${a.id}');closeNotifPopover();` }));
+    return items;
+}
+
+function collectCalendarExportRows() {
+    return getCurrentMonthActivities().map(a => {
+        const p = getChecklistProgress(a.id);
+        return {
+            'Tanggal': formatDateID(a.day, a.month, a.year),
+            'Bulan': MONTH_NAMES_ID[a.month],
+            'Tahun': a.year,
+            'Nama Entitas KUPVA BB': a.entity,
+            'ID Entitas / ID Izin': a.entityId,
+            'Lokasi': a.location,
+            'Jenis Kegiatan / Kewajiban': a.obligationType,
+            'Status': a.status,
+            'Kategori Status': a.statusGroup,
+            'Status Group': a.statusGroup,
+            'Severity': a.severity,
+            'Is Active': a.isActive ? 'TRUE' : 'FALSE',
+            'Is Completed': a.isCompleted ? 'TRUE' : 'FALSE',
+            'Is Critical': a.isCritical ? 'TRUE' : 'FALSE',
+            'Is Warning': a.isWarning ? 'TRUE' : 'FALSE',
+            'Related Module': a.moduleSource,
+            'Level Risiko': a.riskLevel,
+            'SLA / Countdown': a.countdown || a.countdownLabel || '',
+            'Dasar Hukum': a.law,
+            'Detail Regulasi': a.lawDetail || '',
+            'Deskripsi / Catatan': a.description || a.desc || '',
+            'Persentase SLA': a.sla !== '' ? `${a.sla}%` : '',
+            'Checklist Progress': p.total ? `${p.done}/${p.total} (${p.pct}%)` : ''
+        };
+    });
+}
+function exportTrackerExcel() {
+    playClickSound();
+    const rows = collectCalendarExportRows();
+    if (!rows.length) { showToast('Tidak ada event kalender pada bulan yang sedang ditampilkan untuk diekspor.','info','Ekspor Kalender',3500); return; }
+    const headers = ['Tanggal','Bulan','Tahun','Nama Entitas KUPVA BB','ID Entitas / ID Izin','Lokasi','Jenis Kegiatan / Kewajiban','Status','Kategori Status','Status Group','Severity','Is Active','Is Completed','Is Critical','Is Warning','Related Module','Level Risiko','SLA / Countdown','Dasar Hukum','Detail Regulasi','Deskripsi / Catatan','Persentase SLA','Checklist Progress'];
+    const aoa = [headers, ...rows.map(r => headers.map(h => r[h] || ''))];
+    const fileName = `KUPVA_BB_Tracker_Status_${MONTH_NAMES_ID[viewMonth]}_${viewYear}.xlsx`;
+    try {
+        if (window.XLSX) {
+            const ws = XLSX.utils.aoa_to_sheet(aoa);
+            ws['!cols'] = headers.map(h => ({ wch: Math.min(Math.max(h.length + 4, 16), h === 'Deskripsi / Catatan' ? 60 : 38) }));
+            ws['!autofilter'] = { ref: XLSX.utils.encode_range({s:{r:0,c:0}, e:{r:aoa.length-1,c:headers.length-1}}) };
+            ws['!freeze'] = { xSplit:0, ySplit:1 };
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Normalized Activities');
+            XLSX.writeFile(wb, fileName);
+            showToast('File Excel status KUPVA BB berhasil diunduh.','success','Ekspor Berhasil',4200);
+            return;
+        }
+    } catch(err) { console.warn('XLSX export failed, fallback to CSV:', err); }
+    exportTrackerCsvFallback(headers, aoa, fileName.replace('.xlsx','.csv'));
+}
+
+function renderExecModule() {
+    document.getElementById('workspace-title').textContent = 'Dashboard Eksekutif — Surveillance KUPVA BB Sulawesi Utara';
+    renderToolbar({ showMonthNav:false, showAddBtn:false, showFilterExport:true });
+    hideBackButton();
+    const s = calculateDashboardStats();
+    document.getElementById('kpi-matrix-section').innerHTML = `
+        <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">Skenario Aktif Bulan Ini</p><p class="metric-value" style="color:var(--accent-cyan);">${s.active}</p><p class="metric-sub">Dari ${s.currentTotal} event kalender</p></div><div class="metric-icon icon-total"><i class="fa-solid fa-calendar-check"></i></div></div>
+        <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">Critical Unresolved</p><p class="metric-value text-critical">${s.warnings}</p><p class="metric-sub">Sinkron dengan badge merah aktif</p></div><div class="metric-icon icon-warnings"><i class="fa-solid fa-triangle-exclamation"></i></div></div>
+        <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">Due Soon</p><p class="metric-value" style="color:#f59e0b;">${s.upcoming}</p><p class="metric-sub">Batas waktu pekan ini</p></div><div class="metric-icon icon-upcoming"><i class="fa-solid fa-hourglass-half"></i></div></div>
+        <div class="metric-card" style="cursor:default;"><div class="metric-card-left"><p class="metric-label">Total Entitas</p><p class="metric-value" style="color:var(--accent-cyan);">${s.total}</p><p class="metric-sub">Data Master Entitas</p></div><div class="metric-icon icon-total"><i class="fa-solid fa-building"></i></div></div>`;
+    const riskCounts = ['Tinggi','Sedang','Rendah'].map(r => ({ r, n: DB.masterEntities.filter(e => r==='Tinggi' ? ['Tinggi','KRITIKAL'].includes(e.risiko) : e.risiko === r).length }));
+    document.getElementById('dynamic-module-workspace').innerHTML = `<div class="charts-grid"><div class="chart-card"><div class="chart-title"><i class="fa-solid fa-chart-column"></i>Status Aktivitas Juni 2026</div><div class="bar-graph"><div class="bar-col"><div class="bar-fill" style="height:${Math.max(12,s.pending*35)}px;background:var(--blue);"><span class="bar-val">${s.pending}</span></div><span class="bar-lbl">Aktif/Info</span></div><div class="bar-col"><div class="bar-fill" style="height:${Math.max(12,s.upcoming*55)}px;background:var(--yellow);"><span class="bar-val">${s.upcoming}</span></div><span class="bar-lbl">Due Soon</span></div><div class="bar-col"><div class="bar-fill" style="height:${Math.max(12,s.warnings*55)}px;background:var(--red);"><span class="bar-val">${s.warnings}</span></div><span class="bar-lbl">Critical</span></div><div class="bar-col"><div class="bar-fill" style="height:${Math.max(12,s.completed*25)}px;background:var(--green);"><span class="bar-val">${s.completed}</span></div><span class="bar-lbl">Selesai</span></div></div></div><div class="chart-card"><div class="chart-title"><i class="fa-solid fa-location-crosshairs"></i>Zona Risiko Entitas</div>${riskCounts.map(x => `<div class="risk-zone-item" onclick="filterExecByRisk('${x.r}')"><div class="rz-dot" style="background:${x.r==='Tinggi'?'var(--red)':x.r==='Sedang'?'var(--yellow)':'var(--green)'};"></div><div class="rz-label">Risiko ${x.r}</div><span class="rz-count">${x.n} Entitas</span></div>`).join('')}</div></div>`;
+    showActiveScenarioList();
+}
+
+hydrateDummyDataForV7();
+
+
 /* ================================================================
    INITIALIZATION
 ================================================================ */
+
+/* ================================================================
+   V8 MASTER ENTITY LOCATION INFO & DYNAMIC WHATSAPP MESSAGE
+================================================================ */
+const KPWBI_SULUT_INFO = {
+    nama:'KPw Bank Indonesia Provinsi Sulawesi Utara',
+    lokasi:'KPwBI Sulawesi Utara — Manado',
+    alamat:'Jl. 17 Agustus No. 56, Manado, Sulawesi Utara 95117',
+    telepon:'(0431) 866933',
+    fax:'(0431) 868102',
+    mapsUrl:'https://www.google.com/maps/search/?api=1&query=Bank%20Indonesia%20Jl.%2017%20Agustus%20No.%2056%20Manado'
+};
+
+function resolveActivityReference(ref) {
+    if (!ref) return null;
+    if (typeof ref === 'object' && ref.entity) return ref;
+    const val = String(ref);
+    return getActivityById(val) || getAllCalendarActivities().find(a => a.entity === val || a.entityId === val || a.entityShort === val) || null;
+}
+
+function generateWhatsAppMessage(activityOrRef) {
+    const activity = resolveActivityReference(activityOrRef);
+    if (!activity) return 'Selamat pagi, mohon segera menindaklanjuti kewajiban kepatuhan KUPVA BB sesuai ketentuan yang berlaku. Terima kasih.';
+    const text = normalizeSearchText(activity.obligationType, activity.title, activity.status, activity.law, activity.moduleSource);
+    if (/lku|laporan bulanan/.test(text)) {
+        return 'Selamat pagi, mohon segera menyampaikan laporan LKU Bulanan paling lambat tanggal 15 bulan berjalan. Terima kasih.';
+    }
+    if (/perpanjangan|izin usaha.*batas|kadaluarsa/.test(text)) {
+        return 'Selamat pagi, mohon segera melengkapi dan menyampaikan dokumen perpanjangan izin usaha sebelum batas waktu yang ditentukan. Terima kasih.';
+    }
+    if (/checklist|dokumen|persiapan|permohonan izin baru|izin usaha baru/.test(text)) {
+        return 'Selamat pagi, mohon segera melengkapi dokumen yang masih outstanding agar proses tindak lanjut dapat berjalan tepat waktu. Terima kasih.';
+    }
+    if (/apu|ppt|pppspm|ltkm|ltkt|tkm|cdd|edd|ppatk/.test(text)) {
+        return 'Selamat pagi, mohon segera menindaklanjuti kewajiban pelaporan APU/PPT sesuai ketentuan yang berlaku. Terima kasih.';
+    }
+    if (/critical|kritikal|overdue|peringatan|sp1|sanksi/.test(text)) {
+        return 'Selamat pagi, mohon segera menindaklanjuti peringatan kepatuhan yang masih belum selesai sesuai batas waktu yang berlaku. Terima kasih.';
+    }
+    return 'Selamat pagi, mohon segera menindaklanjuti kewajiban kepatuhan KUPVA BB sesuai ketentuan yang berlaku. Terima kasih.';
+}
+
+function renderKpwOfficeAndMapSection() {
+    const entities = DB.masterEntities.filter(e => !/tidak aktif|closed/i.test(e.status));
+    const coords = [
+        {x:58,y:58}, {x:67,y:40}, {x:45,y:69}, {x:35,y:48}, {x:77,y:66}, {x:52,y:35}
+    ];
+    const pins = entities.map((e, i) => {
+        const c = coords[i % coords.length];
+        const label = e.name.replace(/^PT\s+/,'');
+        return `<g>
+            <circle class="map-pin-dot" cx="${c.x}" cy="${c.y}" r="6"></circle>
+            <path d="M${c.x} ${c.y+10} L${c.x-4} ${c.y+2} L${c.x+4} ${c.y+2} Z" fill="#EF4444" stroke="#FFFFFF" stroke-width="1"></path>
+            <text class="map-pin-label" x="${c.x+9}" y="${c.y+4}">${label}</text>
+        </g>`;
+    }).join('');
+    return `<div class="kpw-office-card">
+        <div class="kpw-info-card">
+            <div class="list-shell-title"><i class="fa-solid fa-building-columns" style="color:var(--accent-cyan);"></i> ${KPWBI_SULUT_INFO.lokasi}</div>
+            <div class="kpw-info-grid">
+                <div class="kpw-info-field"><div class="kpw-info-label">Nama Kantor</div><div class="kpw-info-value">${KPWBI_SULUT_INFO.nama}</div></div>
+                <div class="kpw-info-field"><div class="kpw-info-label">No. Telepon</div><div class="kpw-info-value">${KPWBI_SULUT_INFO.telepon}</div></div>
+                <div class="kpw-info-field" style="grid-column:1/-1;"><div class="kpw-info-label">Alamat</div><div class="kpw-info-value">${KPWBI_SULUT_INFO.alamat}</div></div>
+            </div>
+            <a class="kpw-map-link" href="${KPWBI_SULUT_INFO.mapsUrl}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-map-location-dot"></i> Buka Google Maps</a>
+        </div>
+        <div class="manado-map-card">
+            <div class="list-shell-title"><i class="fa-solid fa-location-dot" style="color:var(--red);"></i> Peta Ilustratif Lokasi KUPVA BB — Manado</div>
+            <div class="manado-svg-wrap">
+                <svg viewBox="0 0 100 100" width="100%" height="260" role="img" aria-label="Peta ilustratif lokasi KUPVA BB Manado">
+                    <defs>
+                        <linearGradient id="seaGrad" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#DBEAFE"/><stop offset="100%" stop-color="#BAE6FD"/></linearGradient>
+                        <linearGradient id="landGrad" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#DCFCE7"/><stop offset="100%" stop-color="#F0FDFA"/></linearGradient>
+                    </defs>
+                    <rect x="0" y="0" width="100" height="100" fill="url(#seaGrad)"></rect>
+                    <path d="M22,8 C38,12 54,6 69,18 C85,30 90,47 82,64 C76,78 58,88 38,84 C21,81 10,67 12,49 C14,32 8,17 22,8Z" fill="url(#landGrad)" stroke="#94A3B8" stroke-width=".7"></path>
+                    <path d="M18 28 C35 31 50 39 70 55" stroke="#CBD5E1" stroke-width="2" fill="none" stroke-linecap="round" stroke-dasharray="4 3"></path>
+                    <path d="M30 74 C45 62 61 51 81 40" stroke="#CBD5E1" stroke-width="2" fill="none" stroke-linecap="round" stroke-dasharray="5 4"></path>
+                    <text x="10" y="93" font-size="8" font-weight="900" fill="#075985">KOTA MANADO</text>
+                    <text x="66" y="16" font-size="5" fill="#64748B">Teluk Manado</text>
+                    ${pins}
+                </svg>
+            </div>
+            <div class="map-note"><span class="pill pill-danger" style="padding:2px 7px;">Pin merah</span> Lokasi KUPVA BB. Visualisasi lokasi bersifat ilustratif dan digunakan untuk konteks pengawasan wilayah Manado.</div>
+        </div>
+    </div>`;
+}
+
 window.addEventListener('DOMContentLoaded', () => {
+    initializeSidebarState();
     renderTrackerModule();
     renderAutomationLog();
     document.getElementById('live-clock').textContent = `${TODAY_DOW}, ${TODAY_DAY} ${MONTH_NAMES_ID[TODAY_MONTH_IDX]} ${TODAY_YEAR}`;
-    setTimeout(() => { showToast('<strong>1 Peringatan Kritis</strong> memerlukan tindak lanjut segera — PT Sentralindo Valutama.', 'danger', '🚨 Surveillance Alert — AML/CFT', 6000); }, 800);
+    setTimeout(() => { showToast('<strong>1 Peringatan Kritis</strong> memerlukan tindak lanjut segera — PT Sentralindo Valutama.', 'danger', '🚨 Surveillance Alert — APU/PPT', 6000); }, 800);
 });
 </script>
 </body>
